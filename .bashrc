@@ -11,16 +11,6 @@ NC='\033[0m' # No Color
 # Fancy Prompt
 PS1="${CYAN}\u${NC}@${CYAN}\h${NC}:${BLUE}\w${NC} \$(git branch 2>/dev/null | grep '^*' | colrm 1 2)${GREEN}$ ${NC}"
 
-# Alias Definitions
-alias ll='ls -lah'
-alias la='ls -A'
-alias l='ls -CF'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
 # Git Aliases
 alias ...=../../
 alias ....=../../..
