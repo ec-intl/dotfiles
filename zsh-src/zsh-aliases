@@ -1,8 +1,5 @@
 # zsh aliases
 # Cloud computing aliases
-#   AWS
-alias aws-ecr-cred="aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 185299487714.dkr.ecr.us-east-2.amazonaws.com"
-alias aws-pem="$HOME/cloud-computing/aws/pem/aws-clidapp.pem"
 # Shell aliases
 alias ...="../../"
 alias ....="../../.."
@@ -19,7 +16,6 @@ alias g2sr="cd $HOME/pysrc/statement_reader"
 # Network aliases
 alias ss-imac="ssh 192.168.100.194"
 alias ss-pincer="ssh 192.168.100.205"
-alias ss-ec-intl="ssh eci-admin@192.168.100.200"
 # Python aliases
 #    Python
 alias pm="python -m"
