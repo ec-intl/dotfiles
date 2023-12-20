@@ -24,6 +24,6 @@ Here is a list of some of the dotfiles that are included in this repository:
 
 You can find more information about each dot file in this repository by reading the comments in the files themselves.
 
-## Troubleshooting 
+## Troubleshooting
 
 If you happen to have any problems with the dotfiles, please feel free to open an issue in this repository.
