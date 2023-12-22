@@ -29,7 +29,7 @@ if [ ! -d "$dotfiles_dir" ]; then
 fi
 # Pull the latest changes from the repo
 echo -e "Pulling latest changes from the repo..."
-cd "$dotfile_dir" || exit
+cd "$dotfiles_dir" || exit
 git pull origin master
 
 # Check if the first argument is either 'zsh' or 'bash'
@@ -39,7 +39,7 @@ if [ "$1" != "zsh" ] && [ "$1" != "bash" ]; then
 fi
 
 echo -e "Installing $1...\n"
-src_dir="$dotfiles_dir"/src/$1
-update_rc_file
-source "$HOME"/.$1rc
+src_dir="$dotfiles_dir"/src/"$1"
+update_rc_file "$1"
+source "$HOME"/."$1"rc
 kmsg "Installation complete."
