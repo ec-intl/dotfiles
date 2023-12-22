@@ -11,7 +11,6 @@ export linted_tmp_dir=$linted_tmp_dir
 # Create directories
 rsync README.md install.sh run-linter "$linted_tmp_dir"
 rsync -r ./src "$linted_tmp_dir"
-rsync ./webapp/server/tests/*.py "$linted_tmp_dir/webapp/server/tests/"
 
 if docker run --rm \
 -e RUN_LOCAL=true \
