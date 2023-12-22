@@ -1,25 +1,32 @@
 #!/usr/bin/env sh
 
 # Install script for dotfiles
+src_dir="${HOME}/dotfiles/src/${1}"
 # Check if the first argument is either 'zsh' or 'bash'
 if [ "$1" != "zsh" ] && [ "$1" != "bash" ]; then
-  echo -e "The $1 shell is unrecognized. The first argument must be either 'zsh' or 'bash'."
+  echo "Installation Error:: The first argument must be either 'zsh' or 'bash'."
   exit 1
 fi
-dotfiles_dir="${HOME}/dotfiles"
-src_dir="${dotfiles_dir}/src/${1}"
+ident=$(grep "Dotfile installation" < "${HOME}/.zshrc" | wc -c)
+if [ "$ident" -gt 0 ]; then
+  # shellcheck disable=SC1090
+  . "./src/${1}/functions"
+  wmsg "Dotfiles are already installed. Delete the existing installation and try again."
+  exit 1
+fi
 update_rc_file() {
 cat <<EOF >> "${HOME}/.zshrc"
+# Dotfile installation
 # Source dotfiles_dirs
-source "${src_dir}/functions.sh"
-source "${src_dir}/aliases.sh"
+source "${src_dir}/functions"
+source "${src_dir}/aliases"
 set -a
 source "${src_dir}/env.env"
 # Add custom dotfiles
 # Add functions
-[ -f ${HOME}/${1}-src/functions.sh ] && source ${HOME}/${1}-src/functions.sh
+[ -f ${HOME}/${1}-src/functions ] && source ${HOME}/${1}-src/functions
 # Add aliases
-[ -f ${HOME}/${1}-src/aliases.sh ] && source ${HOME}/${1}-src/aliases.sh
+[ -f ${HOME}/${1}-src/aliases ] && source ${HOME}/${1}-src/aliases
 # Add environment variables
 [ -f ${HOME}/${1}-src/env.env ] && source ${HOME}/${1}-src/env.env
 [ -f ${HOME}/${1}-src/ecr.env.ecr ] && decrypt ${HOME}/${1}-src/ecr.env.ecr
@@ -27,17 +34,9 @@ source "${src_dir}/env.env"
 set +a
 EOF
 }
-# Check if the dotfiles directory exists otherwise clone the repo
-if [ ! -d "$dotfiles_dir" ]; then
-    cd "$HOME" || exit
-    git clone git@github.com:ec-intl/dotfiles.git
-    cd "$dotfiles_dir" || exit
-fi
-# Pull the latest changes from the repo
-cd "$dotfiles_dir" || exit
 git pull origin main
-source "${src_dir}/functions.sh"
+# shellcheck disable=SC1090
+. "./src/${1}/functions"
 imsg "Installing ${1}...\n"
 update_rc_file "$1"
 kmsg "Installation complete."
-
