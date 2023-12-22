@@ -41,5 +41,7 @@ fi
 echo -e "Installing $1...\n"
 src_dir="$dotfiles_dir"/src/"$1"
 update_rc_file "$1"
+
+# shellcheck disable=SC1090
 source "$HOME"/."$1"rc
 kmsg "Installation complete."
