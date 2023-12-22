@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+
+# Install script for dotfiles
+src_dir="${HOME}/dotfiles/src/${1}"
+# Check if the first argument is either 'zsh' or 'bash'
+if [ "$1" != "zsh" ] && [ "$1" != "bash" ]; then
+  echo "Installation Error:: The first argument must be either 'zsh' or 'bash'."
+  exit 1
+fi
+ident=$(grep "Dotfile installation" < "${HOME}/.zshrc" | wc -c)
+if [ "$ident" -gt 0 ]; then
+  # shellcheck disable=SC1090
+  . "./src/${1}/functions"
+  wmsg "Dotfiles are already installed. Delete the existing installation and try again."
+  exit 1
+fi
+update_rc_file() {
+cat <<EOF >> "${HOME}/.zshrc"
+# Dotfile installation
+# Source dotfiles_dirs
+source "${src_dir}/functions"
+source "${src_dir}/aliases"
+set -a
+source "${src_dir}/env.env"
+# Add custom dotfiles
+# Add functions
+[ -f ${HOME}/${1}-src/functions ] && source ${HOME}/${1}-src/functions
+# Add aliases
+[ -f ${HOME}/${1}-src/aliases ] && source ${HOME}/${1}-src/aliases
+# Add environment variables
+[ -f ${HOME}/${1}-src/env.env ] && source ${HOME}/${1}-src/env.env
+[ -f ${HOME}/${1}-src/ecr.env.ecr ] && decrypt ${HOME}/${1}-src/ecr.env.ecr
+[ -f ${HOME}/${1}-src/ecr.env ] && source ${HOME}/${1}-src/ecr.env && rm ${HOME}/${1}-src/ecr.env
+set +a
+EOF
+}
+git pull origin main
+# shellcheck disable=SC1090
+. "./src/${1}/functions"
+imsg "Installing ${1}...\n"
+update_rc_file "$1"
+kmsg "Installation complete."

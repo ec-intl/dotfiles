@@ -1,24 +1,25 @@
-#!/bin/zsh
-[ -f "$HOME"/dotfiles/src/zsh/functions ] && source $HOME/dotfiles/src/zsh/functions
+#!/usr/bin/env sh
+
+# shellcheck disable=SC1091
+[ -f "${HOME}/dotfiles/src/zsh/functions" ] && . "${HOME}/dotfiles/src/zsh/functions"
 imsg "Welcome to the LOCAL Continuous Integration Test Suite."
 docker pull github/super-linter:latest
 imsg "Running the linters."
-linted_tmp_dir="/tmp/$(date '+%M%S')"
-export linted_tmp_dir=$linted_tmp_dir
+tmp_dir="/tmp/$(date '+%M%S')"
+export tmp_dir="$tmp_dir"
 # Create directories
-rsync README.md install.sh run-linter "$linted_tmp_dir"
-rsync -r ./src "$linted_tmp_dir"
+rsync README.md install run-linter "$tmp_dir"
+rsync -r ./src ./.github "$tmp_dir"
 # Run Docker
 if docker run --rm \
 -e RUN_LOCAL=true \
 -e USE_FIND_ALGORITHM=true \
 --env-file ".github/super-linter.env" \
--v "$linted_tmp_dir":/tmp/lint github/super-linter; then
+-v "${tmp_dir}:/tmp/lint" github/super-linter; then
     kmsg "Linting Tests ==> PASSED."
 else
     emsg "Linting Tests ==> FAILED."
     exit 1
 fi
 
-rm -rf "$linted_tmp_dir"
-
+rm -rf "$tmp_dir"
