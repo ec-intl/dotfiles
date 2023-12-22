@@ -31,6 +31,8 @@ imsg() {
 wmsg() {
   msg "warn" "$1"
 }
+
+# A greeting script
 greet() {
   # Get the current hour
   timestamp=$(date '+%Y-%m-%d %H:%M:%S')
@@ -46,10 +48,14 @@ greet() {
     echo -e "$timestamp Good Evening"
   fi
 }
+
+
 # Change directory and list contents
 cl() {
   cd "$@" && ll
 }
+
+
 # Extract archive using the correct program
 extract() {
   imsg "Extracting $1 ..."
@@ -72,17 +78,21 @@ extract() {
     emsg "'$1' is not a valid archive file!"
   fi
 }
+
+
 # Git add commit and push
 gacp() {
   imsg "Pushing all changes to GitHub..."
   git add . && git commit -m "$1" && git push && kmsg "Push completed succssfully."
   [ ! $? ] && emsg "Push failed."
 }
+
+
 # Create default directories
 make_default_directories() {
   makedir() {
     if [ ! -d "${HOME}/$1" ]; then
-      imsg "Creating the $dir directory..."
+      imsg "Creating the $1 directory..."
       mkdir -p "${HOME}/$1"
     fi
   }
@@ -91,10 +101,14 @@ make_default_directories() {
     makedir "$dir"
   done
 }
+
+
 # Make a python virtual environment
 python_venv() {
   python -m venv "$1" && source "$1/bin/activate"
 }
+
+
 # Encrypt file using openssl
 encrypt() {
  imsg "Encrypting $1..."
@@ -103,6 +117,7 @@ encrypt() {
  [ ! $? || ! -f "$1.ecr"] && emsg "Encryption failed."
 }
 
+
 decrypt() {
   imsg "Decrypting $1..."
   outfile=`echo $1 | sed 's/\.ecr$//'`
@@ -110,7 +125,9 @@ decrypt() {
   [ -f "$outfile" ] && kmsg "Decryption successful."
   [ ! $? ] && emsg "Decryption failed"
 }
-# Set
+
+
+# Set environment
 setenv() {
   imsg "Setting environment variables from file: $1"
   set -a
@@ -118,10 +135,11 @@ setenv() {
   [ ! $? ] || [ ! -f "$1" ] && emsg "An error occurred. Likely file not found." && set +a
 }
 
-gen-secret-key() {
+
+gen_secret_key() {
   echo -e `openssl rand -base64 32`
 }
 
+
 # Run functions
 make_default_directories
-
