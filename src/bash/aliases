@@ -1,15 +1,17 @@
+#!/bin/bash
+
 # Define Colors
-RED='\033[1;31m'
-GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[1;34m'
-PURPLE='\033[1;35m'
-CYAN='\033[0;36m'
-WHITE='\033[1;37m'
-NC='\033[0m' # No Color
+export RED='\033[1;31m'
+export GREEN='\033[1;32m'
+export YELLOW='\033[1;33m'
+export BLUE='\033[1;34m'
+export PURPLE='\033[1;35m'
+export CYAN='\033[0;36m'
+export WHITE='\033[1;37m'
+export NC='\033[0m' # No Color
 
 # Fancy Prompt
-PS1="${PURPLE}\n\[$(date '+%H:%M:%S %Y-%m-%d')\] 👷 ${GREEN}\u${NC} 💻 ${YELLOW}\h${NC} 📂 ${BLUE}\w${NC} ${CYAN} ➜ (${RED}\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)${CYAN})\n\n${GREEN}>>> ${NC}"
+PS1="${PURPLE}\n\[$(date '+%H:%M:%S %A %B %d, %Y.')\] 👷 ${GREEN}\u${NC} 💻 ${YELLOW}\h${NC} 📂 ${BLUE}\w${NC} ${CYAN} ➜ (${RED}\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)${CYAN})\n\n${GREEN}>>> ${NC}"
 
 # Aliases
 
@@ -56,8 +58,6 @@ alias gba='git branch --all'
 alias gbd='git branch --delete'
 alias gbda='git branch --no-color --merged | command grep -vE "^([+*]|\s*($(git_main_branch)|$(git_develop_branch))\s*$)" | command xargs git branch --delete 2>/dev/null'
 alias gbg='LANG=C git branch -vv | grep ": gone\]"'
-alias gbgD='LANG=C git branch --no-color -vv | grep ": gone\]" | awk '\''{print $1}'\'' | xargs git branch -D'
-alias gbgd='LANG=C git branch --no-color -vv | grep ": gone\]" | awk '\''{print $1}'\'' | xargs git branch -d'
 alias gbl='git blame -w'
 alias gbm='git branch --move'
 alias gbnm='git branch --no-merged'
@@ -211,7 +211,6 @@ alias gswd='git switch $(git_develop_branch)'
 alias gswm='git switch $(git_main_branch)'
 alias gta='git tag --annotate'
 alias gtcl='cd pysrc/clidapp/src/'
-alias gtl='gtl(){ git tag --sort=-v:refname -n --list "${1}*" }; noglob gtl'
 alias gts='git tag --sign'
 alias gtsr='cd pysrc/statement_reader/src/'
 alias gtv='git tag | sort -V'
@@ -268,4 +267,4 @@ shopt -s histappend
 shopt -s checkwinsize
 
 # Custom Welcome Message
-echo -e "${GREEN}Welcome ${RED}$USER ${GREEN}to the ${PURPLE}Bash Shell${NC}"
+printf "\n${GREEN}%s ${RED}$USER${GREEN}, and welcome to the ${PURPLE}Bash Shell${NC}\n" "$(greet)"

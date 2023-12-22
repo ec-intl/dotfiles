@@ -1,4 +1,5 @@
-#! /usr/bin/env sh
+#!/bin/bash
+
 
 # Print color coded messages
 msg() {
@@ -33,6 +34,7 @@ imsg() {
 wmsg() {
   msg "warn" "$1"
 }
+
 
 # A greeting script
 greet() {
@@ -122,10 +124,11 @@ encrypt() {
  fi
 }
 
+
 # Decrypt file using openssl
 decrypt() {
   imsg "Decrypting ${1}..."
-  outfile=$(sed 's/\.ecr$//' < "$1")
+  outfile="${1//.ecr/}"
   openssl aes-256-cbc -pbkdf2 -d -in "$1" -out "$outfile"
   [ -f "$outfile" ] && kmsg "Decryption successful."
   [ ! $? ] && emsg "Decryption failed"
