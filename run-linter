@@ -1,7 +1,7 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 # shellcheck disable=SC1091
-[ -f "${HOME}/dotfiles/src/zsh/functions" ] && . "${HOME}/dotfiles/src/zsh/functions"
+[ -f "${HOME}/dotfiles/src/bash/functions" ] && . "${HOME}/dotfiles/src/bash/functions"
 imsg "Welcome to the LOCAL Continuous Integration Test Suite."
 docker pull github/super-linter:latest
 imsg "Running the linters."

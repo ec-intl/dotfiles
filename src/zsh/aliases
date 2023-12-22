@@ -1,4 +1,4 @@
-#! /usr/bin/env sh
+#!/bin/bash
 
 # Cloud computing aliases
 # Shell aliases
@@ -31,3 +31,6 @@ export PURPLE='\033[1;35m'
 export RED='\033[1;31m'
 export WHITE='\033[1;37m'
 export YELLOW='\033[1;33m'
+
+# Custom Welcome Message
+printf "\n${GREEN}%s ${RED}$USER${GREEN}, and welcome to the ${PURPLE}Z Shell${NC}\n" "$(greet)"
