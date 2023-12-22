@@ -1,9 +1,9 @@
 # Define Colors
-RED='\033[0;31m'
-GREEN='\033[0;32m'
+RED='\033[1;31m'
+GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-PURPLE='\033[0;35m'
+BLUE='\033[1;34m'
+PURPLE='\033[1;35m'
 CYAN='\033[0;36m'
 WHITE='\033[1;37m'
 NC='\033[0m' # No Color
@@ -11,6 +11,14 @@ NC='\033[0m' # No Color
 # Fancy Prompt
 PS1="${CYAN}\u${NC}@${CYAN}\h${NC}:${BLUE}\w${NC} \$(git branch 2>/dev/null | grep '^*' | colrm 1 2)${GREEN}$ ${NC}"
 
+# Aliases
+
+# Git Aliases
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....=../../..
+alias .....=../../../..
+alias ......=../../../../..
 # Git Aliases
 alias ...=../../
 alias ....=../../..
@@ -250,58 +258,9 @@ alias pygrep='grep -nr --include="*.py"'
 alias pyserver='python3 -m http.server'
 alias rd=rmdir
 alias run-help=man
-alias ss-ec-intl='ssh eci-admin@192.168.100.200'
-alias ss-imac='ssh 192.168.100.194'
-alias ss-pincer='ssh 192.168.100.205'
 alias su='nocorrect su'
 alias sudo='nocorrect sudo'
 alias which-command=whence
-# Function to extract files
-extract() {
-    if [ -f "$1" ] ; then
-        case "$1" in
-            *.tar.bz2)   tar xjf "$1"     ;;
-            *.tar.gz)    tar xzf "$1"     ;;
-            *.bz2)       bunzip2 "$1"     ;;
-            *.rar)       unrar e "$1"     ;;
-            *.gz)        gunzip "$1"      ;;
-            *.tar)       tar xf "$1"      ;;
-            *.tbz2)      tar xjf "$1"     ;;
-            *.tgz)       tar xzf "$1"     ;;
-            *.zip)       unzip "$1"       ;;
-            *.Z)         uncompress "$1"  ;;
-            *.7z)        7z x "$1"        ;;
-            *)           echo "Don't know how to extract '$1'..." ;;
-        esac
-    else
-        echo "'$1' is not a valid file!"
-    fi
-}
-
-# cd with 'ls'
-cl() {
-    cd "$@" && ll
-}
-
-# Auto-correct typos in path names when using `cd`
-shopt -s cdspell
-
-# Enable color support for `ls` and `grep` command when using interactive terminals
-case "$TERM" in
-    xterm*|rxvt*) export LS_OPTIONS='--color=auto' ;;
-    *) ;;
-esac
-
-# Enable programming languages for syntax highlighting in `less`
-export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
-export LESS=' -R '
-
-# Enable history appending instead of overwriting when exiting. And use a big history file
-export HISTSIZE=10000
-shopt -s histappend
-
-# Check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
-shopt -s checkwinsize
 
 # Custom Welcome Message
 echo -e "${GREEN}Welcome ${RED}$USER ${GREEN}to the ${PURPLE}Bash Shell${NC}"
