@@ -100,8 +100,10 @@ make_default_directories() {
       mkdir -p "${HOME}/$1"
     fi
   }
-  directories="Downloads bin lib src pysrc"
-  for dir in $directories; do
+  # shellcheck disable=SC3030
+  directories=( Downloads bin lib src pysrc )
+  # shellcheck disable=SC3054
+  for dir in "${directories[@]}"; do
     makedir "$dir"
   done
 }
