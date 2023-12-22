@@ -4,8 +4,8 @@ dotfiles_dir="$HOME"/dotfiles
 update_rc_file() {
 cat <<EOF >> "$HOME"/.zshrc
 # Source dotfiles
-source "$src_dir"/functions
-source "$src_dir"/aliases
+source "$src_dir"/functions.sh
+source "$src_dir"/aliases.sh
 set -a
 source "$src_dir"/env.env
 # Add custom dotfiles
@@ -45,3 +45,4 @@ update_rc_file "$1"
 # shellcheck disable=SC1090
 source "$HOME"/."$1"rc
 kmsg "Installation complete."
+
