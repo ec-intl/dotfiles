@@ -3,19 +3,19 @@ msg() {
   timestamp=$(date '+%Y-%m-%d %H:%M:%S')
   case $1 in
     fail)
-      echo -e "\n$timestamp \033[31m[  FAILURE  ]\033[0m $2\n"
+      echo "\n$timestamp \033[31m[  FAILURE  ]\033[0m $2\n"
       ;;
     ok)
-      echo -e "\n$timestamp \033[32m[  SUCCESS  ]\033[0m $2\n"
+      echo "\n$timestamp \033[32m[  SUCCESS  ]\033[0m $2\n"
       ;;
     warn)
-      echo -e "$timestamp \033[33m[  WARNING  ]\033[0m $2"
+      echo "$timestamp \033[33m[  WARNING  ]\033[0m $2"
       ;;
     info)
-      echo -e "$timestamp \033[34m[INFORMATION]\033[0m $2"
+      echo "$timestamp \033[34m[INFORMATION]\033[0m $2"
       ;;
     *)
-      echo -e "$timestamp [  NOTICE  ] $2"
+      echo "$timestamp [  NOTICE  ] $2"
       ;;
   esac
 }
@@ -39,13 +39,13 @@ greet() {
   HOUR=$(date +%H)
   # If the hour is less than 12, it's morning
   if [ $HOUR -lt 12 ]; then
-    echo -e "$timestamp Good Morning"
+    echo "$timestamp Good Morning"
     # If the hour is between 12 and 18, it's afternoon
   elif [ $HOUR -lt 18 ]; then
-    echo -e "$timestamp Good Afternoon"
+    echo "$timestamp Good Afternoon"
     # Otherwise, it's evening
   else
-    echo -e "$timestamp Good Evening"
+    echo "$timestamp Good Evening"
   fi
 }
 
@@ -137,7 +137,7 @@ setenv() {
 
 
 gen_secret_key() {
-  echo -e `openssl rand -base64 32`
+  echo `openssl rand -base64 32`
 }
 
 
