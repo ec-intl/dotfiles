@@ -6,7 +6,9 @@
 
 This repository contains ECI's dotfiles 🟢, configuration files 📁 for the Company's various tools and applications. We use dotfiles to keep our environment consistent across machines 💻 and codespaces.
 
-The dotfiles in this repository work on both Linux 🐧 and macOS 🍎. For Linux, we use Ubuntu 🐧 with the Bash shell. For macOS, we use the Zsh shell with Oh My Zsh. The src directory contains standardized aliases, functions, and other scripts that the dotfiles use. The install script updates your `.bashrc` or `.zshrc` file to source the files in the src directories. After installing, you can use the aliases and functions in your terminal.
+The dotfiles in this repository work on both Linux 🐧 and macOS 🍎. For Linux, we use Ubuntu 🐧 with the Bash shell. For macOS, we use the Zsh shell with Oh My Zsh.
+
+The src directory contains standardized aliases, functions, and other scripts that the dotfiles use. The install script updates your `.bashrc` or `.zshrc` file to source the files in the src directories. After installing, you can use the aliases and functions in your terminal.
 
 ## Installation
 
@@ -56,10 +58,6 @@ Here is the dotfiles's directory structure (note that Zsh uses the bash function
   - zsh
     - aliases
     - env.env
-- .github
-  - workflows
-    - linter.yml
-  - super-liner.env
 - install
 - License
 - README.md
