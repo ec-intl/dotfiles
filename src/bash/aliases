@@ -9,7 +9,7 @@ WHITE='\033[1;37m'
 NC='\033[0m' # No Color
 
 # Fancy Prompt
-PS1="${CYAN}\u${NC}@${CYAN}\h${NC}:${BLUE}\w${NC} \$(git branch 2>/dev/null | grep '^*' | colrm 1 2)${GREEN}$ ${NC}"
+PS1="${PURPLE}\n\[$(date '+%H:%M:%S %Y-%m-%d')\] 👷 ${GREEN}\u${NC} 💻 ${YELLOW}\h${NC} 📂 ${BLUE}\w${NC} ${CYAN} ➜ (${RED}\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)${CYAN})\n\n${GREEN}>>> ${NC}"
 
 # Aliases
 
@@ -34,7 +34,6 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 alias _='sudo '
-alias cp='nocorrect cp'
 alias egrep='grep -E --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 alias fgrep='grep -F --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 alias g=git
@@ -238,10 +237,7 @@ alias la='ls -lAh'
 alias ll='ls -lh'
 alias ls='ls -G'
 alias lsa='ls -lah'
-alias man='nocorrect man'
 alias md='mkdir -p'
-alias mkdir='nocorrect mkdir'
-alias mv='nocorrect mv'
 alias my-env='source ~/pysrc/cmbengue/bin/activate'
 alias pcsu='python -m manage createsuperuser'
 alias plb='python -m black -l 79 --experimental-string-processing'
@@ -258,9 +254,18 @@ alias pygrep='grep -nr --include="*.py"'
 alias pyserver='python3 -m http.server'
 alias rd=rmdir
 alias run-help=man
-alias su='nocorrect su'
-alias sudo='nocorrect sudo'
 alias which-command=whence
+
+# Enable color support for `ls` and `grep` command when using interactive terminals
+case "$TERM" in
+    xterm*|rxvt*) export LS_OPTIONS='--color=auto' ;;
+    *) ;;
+esac
+
+# Auto-correct typos in path names when using `cd`
+shopt -s cdspell
+shopt -s histappend
+shopt -s checkwinsize
 
 # Custom Welcome Message
 echo -e "${GREEN}Welcome ${RED}$USER ${GREEN}to the ${PURPLE}Bash Shell${NC}"

@@ -9,16 +9,15 @@ if [ "$1" != "zsh" ] && [ "$1" != "bash" ]; then
 fi
 ident=$(grep "Dotfile installation" < "${HOME}/.${1}rc" | wc -c)
 if [ "$ident" -gt 0 ]; then
-  # shellcheck disable=SC1090
-  . "./src/${1}/functions"
+  . "./src/zsh/functions"
   wmsg "Dotfiles are already installed. Delete the existing installation and try again."
   exit 1
 fi
 update_rc_file() {
-cat <<EOF >> "${HOME}/.zshrc"
+cat <<EOF >> "${HOME}/.${1}rc"
 # Dotfile installation
 # Source dotfiles_dirs
-source "${src_dir}/functions"
+source "${HOME}/dotfiles/src/zsh/functions"
 source "${src_dir}/aliases"
 set -a
 source "${src_dir}/env.env"
@@ -35,8 +34,7 @@ set +a
 EOF
 }
 git pull origin main
-# shellcheck disable=SC1090
-. "./src/${1}/functions"
-imsg "Installing ${1}...\n"
+. "./src/zsh/functions"
+imsg "Installing ${1}..."
 update_rc_file "$1"
 kmsg "Installation complete."
