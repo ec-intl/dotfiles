@@ -1,6 +1,6 @@
 # dotfiles 🚀
 
-[![GitHub Super-Linter](https://github.com/ec-intl/dotfiles/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/ec-intl/dotfiles/actions/workflows/linter.yml)
+[![Lint Codebase](https://github.com/ec-intl/dotfiles/actions/workflows/linter.yml/badge.svg)](https://github.com/ec-intl/dotfiles/actions/workflows/linter.yml)
 
 ## About
 This repository contains my dotfiles 🟢, configuration files 📁 for my various tools and applications. I use dotfiles to keep my environment consistent across machines 💻 and codespaces.
