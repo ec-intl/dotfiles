@@ -11,7 +11,7 @@ export WHITE='\033[1;37m'
 export NC='\033[0m' # No Color
 
 # Fancy Prompt
-PS1="${PURPLE}\n\[$(date '+%H:%M:%S %A %B %d, %Y.')\] 👷 ${GREEN}\u${NC} 💻 ${YELLOW}\h${NC} 📂 ${BLUE}\w${NC} ${CYAN} ➜ (${RED}\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)${CYAN})\n\n${GREEN}>>> ${NC}"
+PS1="${PURPLE}\n\[\$(date '+%H:%M:%S %A %B %d, %Y.')\] 👷 ${GREEN}\u${NC} 💻 ${YELLOW}\h${NC} 📂 ${BLUE}\w${NC} ${CYAN} ➜ (${RED}\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)${CYAN})\n\n${GREEN}>>> ${NC}"
 
 # Aliases
 
@@ -229,12 +229,7 @@ alias gwta='git worktree add'
 alias gwtls='git worktree list'
 alias gwtmv='git worktree move'
 alias gwtrm='git worktree remove'
-alias history=omz_history
 alias ipython='python3 -c '\''import IPython; IPython.terminal.ipapp.launch_new_instance()'\'
-alias l='ls -lah'
-alias la='ls -lAh'
-alias ll='ls -lh'
-alias ls='ls -G'
 alias lsa='ls -lah'
 alias md='mkdir -p'
 alias my-env='source ~/pysrc/cmbengue/bin/activate'
@@ -255,16 +250,9 @@ alias rd=rmdir
 alias run-help=man
 alias which-command=whence
 
-# Enable color support for `ls` and `grep` command when using interactive terminals
-case "$TERM" in
-    xterm*|rxvt*) export LS_OPTIONS='--color=auto' ;;
-    *) ;;
-esac
 
 # Auto-correct typos in path names when using `cd`
 shopt -s cdspell
-shopt -s histappend
-shopt -s checkwinsize
 
 # Custom Welcome Message
 printf "\n${GREEN}%s ${RED}$USER${GREEN}, and welcome to the ${PURPLE}Bash Shell${NC}\n" "$(greet)"
