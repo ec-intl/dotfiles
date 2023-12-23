@@ -11,7 +11,11 @@ export WHITE='\033[1;37m'
 export NC='\033[0m' # No Color
 
 # Fancy Prompt
+<<<<<<< HEAD
 PS1="${PURPLE}\n\[\$(date '+%H:%M:%S %A %B %d, %Y.')\] 👷 ${GREEN}\u${NC} 💻 ${YELLOW}\h${NC} 📂 ${BLUE}\w${NC} ${CYAN} ➜ (${RED}\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)${CYAN})\n\n${GREEN}>>> ${NC}"
+=======
+PS1="${PURPLE}\n\[$(date '+%H:%M:%S %A %B %d, %Y')\] 👷 ${GREEN}\u${NC} 💻 ${YELLOW}\h${NC} 📂 ${BLUE}\w${NC} ${CYAN} ➜ (${RED}\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)${CYAN})\n\n${GREEN}>>> ${NC}"
+>>>>>>> 71947d44a020bb47641219fde370e22c068af61f
 
 # Aliases
 
@@ -249,7 +253,6 @@ alias pyserver='python3 -m http.server'
 alias rd=rmdir
 alias run-help=man
 alias which-command=whence
-
 
 # Auto-correct typos in path names when using `cd`
 shopt -s cdspell
