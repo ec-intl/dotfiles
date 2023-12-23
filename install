@@ -19,7 +19,7 @@ cat <<EOF >> "${HOME}/.${1}rc"
 # Source dotfiles_dirs
 source "${HOME}/dotfiles/src/bash/functions"
 set -a
-source "${src_dir}/env.env"
+sour "${src_dir}/env.env"
 # Add custom dotfiles
 # Add functions
 [ -f ${HOME}/${1}-src/functions ] && source ${HOME}/${1}-src/functions
