@@ -3,7 +3,7 @@
 
 # Print color coded messages
 msg() {
-  timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+  timestamp=$(TZ="America/St_Lucia" date '+%Y-%m-%d %H:%M:%S')
   case $1 in
     fail)
       printf "\n%s \033[1;31m[  FAILURE  ]\033[0m %s\n\n" "$timestamp" "$2"
@@ -39,7 +39,7 @@ wmsg() {
 # A greeting script
 greet() {
   # Get the current hour
-  timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+  timestamp=$(TZ="America/St_Lucia" date '+%Y-%m-%d %H:%M:%S')
   HOUR=$(date +%H)
   # If the hour is less than 12, it's morning
   if [ "$HOUR" -lt 12 ]; then
