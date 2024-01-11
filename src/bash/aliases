@@ -11,7 +11,7 @@ export WHITE='\033[1;37m'
 export NC='\033[0m' # No Color
 
 # Fancy Prompt
-PS1="${PURPLE}\n\[\$(TZ="America/St_Lucia" date '+%H:%M:%S %A %B %d, %Y.')\] 👷 ${GREEN}\u${NC} 💻 ${YELLOW}\h${NC} 📂 ${BLUE}\w${NC} ${CYAN} ➜ (${RED}\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)${CYAN})\n\n${GREEN}>>> ${NC}"
+PS1="${PURPLE}\n\[\$(TZ='America/St_Lucia' date '+%H:%M:%S %A %B %d, %Y.')\] 👷 ${GREEN}\u${NC} 💻 ${YELLOW}\h${NC} 📂 ${BLUE}\w${NC} ${CYAN} ➜ (${RED}\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)${CYAN})\n\n${GREEN}>>> ${NC}"
 
 # Aliases
 
