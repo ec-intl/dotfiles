@@ -29,7 +29,7 @@ To install the dotfiles, clone this repository to your 🏠 📂 and then 🏃 t
 3. Run the install.sh script stating the shell you are using, for example, if you are using bash:
 
     ```bash
-        ./install.sh bash
+        ./install bash
     ```
 
 4. Finally, source your shell's configuration file, for example, if you are using bash:
