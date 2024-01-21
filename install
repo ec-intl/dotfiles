@@ -41,7 +41,7 @@ git pull origin main
 imsg "Installing ${1}..."
 update_rc_file "$1"
 # Loop through all files in the bin directory and make them executable
-for file in ${HOME}/dotfiles/bin/*; do
+for file in "${HOME}"/dotfiles/bin/*; do
   if [ -f "${file}" ]; then
     chmod +x "${file}"
   fi
