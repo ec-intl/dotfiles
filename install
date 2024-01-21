@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install script for dotfiles
-src_dir="${HOME}/dotfiles/src/${1}"
+src_dir="\${HOME}/dotfiles/src/${1}"
 # Check if the first argument is either 'zsh' or 'bash'
 if [ "$1" != "zsh" ] && [ "$1" != "bash" ]; then
   echo "Installation Error:: The first argument must be either 'zsh' or 'bash'."
@@ -17,22 +17,22 @@ update_rc_file() {
 cat <<EOF >> "${HOME}/.${1}rc"
 # Dotfile installation start
 # Source dotfiles_dirs
-source "${HOME}/dotfiles/src/bash/functions"
+source "\${HOME}/dotfiles/src/bash/functions"
 set -a
 source "${src_dir}/env.env"
 # Add custom dotfiles
 # Add environment variables
-[ -f ${HOME}/${1}-src/env.env ] && source ${HOME}/${1}-src/env.env
-[ -f ${HOME}/${1}-src/ecr.env.ecr ] && decrypt ${HOME}/${1}-src/ecr.env.ecr
-[ -f ${HOME}/${1}-src/ecr.env ] && source ${HOME}/${1}-src/ecr.env && rm ${HOME}/${1}-src/ecr.env
+[ -f \${HOME}/${1}-src/env.env ] && source \${HOME}/${1}-src/env.env
+[ -f \${HOME}/${1}-src/ecr.env.ecr ] && decrypt \${HOME}/${1}-src/ecr.env.ecr
+[ -f \${HOME}/${1}-src/ecr.env ] && source \${HOME}/${1}-src/ecr.env && rm \${HOME}/${1}-src/ecr.env
 set +a
 # Add aliases
 source "${src_dir}/aliases"
-[ -f ${HOME}/${1}-src/aliases ] && source ${HOME}/${1}-src/aliases
+[ -f \${HOME}/${1}-src/aliases ] && source \${HOME}/${1}-src/aliases
 # Add functions
-[ -f ${HOME}/${1}-src/functions ] && source ${HOME}/${1}-src/functions
+[ -f \${HOME}/${1}-src/functions ] && source \${HOME}/${1}-src/functions
 # Add dotfiles bin directory to PATH
-export PATH="${HOME}/dotfiles/bin:${PATH}"
+export PATH="\${HOME}/dotfiles/bin:\${PATH}"
 # Dotfile installation end
 EOF
 }
