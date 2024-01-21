@@ -42,6 +42,42 @@ To install the dotfiles, clone this repository to your 🏠 📂 and then 🏃 t
 
 Once you complete the installation steps, you will see a welcome message 📜.
 
+## Uninstallation
+
+To uninstall the dotfiles, run the following commands:
+
+1. Navigate to the dotfiles directory:
+
+    ```bash
+        cd dotfiles
+    ```
+
+2. Run the uninstall.sh script stating the shell you are using, for example, if you are using bash:
+
+    ```bash
+        ./uninstall bash
+    ```
+
+The uninstall script will remove the dotfiles from your home directory and restore your shell's configuration file to its original state.
+
+## Getting the latest version
+
+To get the latest version of the dotfiles, run the following commands:
+
+1. Navigate to the dotfiles directory:
+
+    ```bash
+        cd dotfiles
+    ```
+
+2. Run the update.sh script stating the shell you are using, for example, if you are using bash:
+
+    ```bash
+        ./update bash
+    ```
+
+The update script will pull the latest version of the dotfiles from the remote repository and update your shell's configuration file to source the files in the src directories.
+
 ## Customization
 
 If you want to customize the dotfiles, edit the files in the dotfiles directory and rerun your shell's configuration file. You can add your own aliases, `.env` files, and functions to corresponding files in the `$HOME/bash-src` or `$HOME/zsh-src` directories. The install script will automatically source these files when you run it.
@@ -61,11 +97,13 @@ Here is the dotfiles's directory structure (note that Zsh uses the bash function
     - aliases
     - env.env
 - bin
-  - gres
+  - gres: This script replaces a pattern in a file, but does not change the file's contents.
 - install
 - License
 - README.md
 - run-linter
+- uninstall
+- update
 
 ## Further Information
 
