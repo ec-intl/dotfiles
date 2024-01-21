@@ -19,10 +19,8 @@ cat <<EOF >> "${HOME}/.${1}rc"
 # Source dotfiles_dirs
 source "${HOME}/dotfiles/src/bash/functions"
 set -a
-sour "${src_dir}/env.env"
+source "${src_dir}/env.env"
 # Add custom dotfiles
-# Add functions
-[ -f ${HOME}/${1}-src/functions ] && source ${HOME}/${1}-src/functions
 # Add environment variables
 [ -f ${HOME}/${1}-src/env.env ] && source ${HOME}/${1}-src/env.env
 [ -f ${HOME}/${1}-src/ecr.env.ecr ] && decrypt ${HOME}/${1}-src/ecr.env.ecr
@@ -31,6 +29,10 @@ set +a
 # Add aliases
 source "${src_dir}/aliases"
 [ -f ${HOME}/${1}-src/aliases ] && source ${HOME}/${1}-src/aliases
+# Add functions
+[ -f ${HOME}/${1}-src/functions ] && source ${HOME}/${1}-src/functions
+# Add dotfiles bin directory to PATH
+export PATH="${HOME}/dotfiles/bin:${PATH}"
 EOF
 }
 git pull origin main

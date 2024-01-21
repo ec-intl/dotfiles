@@ -10,6 +10,8 @@ The dotfiles in this repository work on both Linux 🐧 and macOS 🍎. For Linu
 
 The src directory contains standardized aliases, functions, and other scripts that the dotfiles use. The install script updates your `.bashrc` or `.zshrc` file to source the files in the src directories. After installing, you can use the aliases and functions in your terminal.
 
+The bin direcotry contains scripts that you can run from the command-line. The install script adds the bin directory to your PATH so that you can run the scripts from anywhere.
+
 ## Installation
 
 To install the dotfiles, clone this repository to your 🏠 📂 and then 🏃 the following commands:
@@ -58,6 +60,8 @@ Here is the dotfiles's directory structure (note that Zsh uses the bash function
   - zsh
     - aliases
     - env.env
+- bin
+  - gres
 - install
 - License
 - README.md
