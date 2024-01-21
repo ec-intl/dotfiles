@@ -15,7 +15,7 @@ if [ "$ident" -gt 0 ]; then
 fi
 update_rc_file() {
 cat <<EOF >> "${HOME}/.${1}rc"
-# Dotfile installation
+# Dotfile installation start
 # Source dotfiles_dirs
 source "${HOME}/dotfiles/src/bash/functions"
 set -a
@@ -33,16 +33,17 @@ source "${src_dir}/aliases"
 [ -f ${HOME}/${1}-src/functions ] && source ${HOME}/${1}-src/functions
 # Add dotfiles bin directory to PATH
 export PATH="${HOME}/dotfiles/bin:${PATH}"
-# Loop through all files in the bin directory and make them executable
-for file in ${HOME}/dotfiles/bin/*; do
-  if [ -f "\${file}" ]; then
-    chmod +x "\${file}"
-  fi
-done
+# Dotfile installation end
 EOF
 }
 git pull origin main
 . "./src/bash/functions"
 imsg "Installing ${1}..."
 update_rc_file "$1"
+# Loop through all files in the bin directory and make them executable
+for file in ${HOME}/dotfiles/bin/*; do
+  if [ -f "\${file}" ]; then
+    chmod +x "\${file}"
+  fi
+done
 kmsg "Installation complete."

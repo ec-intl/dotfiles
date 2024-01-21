@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Uninstall script for dotfiles
+
+# Check if the first argument is either 'zsh' or 'bash'
+if [ "$1" != "zsh" ] && [ "$1" != "bash" ]; then
+  echo "Uninstallation Error:: The first argument must be either 'zsh' or 'bash'."
+  exit 1
+fi
+
+# Check if the dotfiles are installed
+ident=$(grep "Dotfile installation" < "${HOME}/.${1}rc" | wc -c)
+if [ "$ident" -eq 0 ]; then
+  echo "Uninstallation Error:: Dotfiles are not installed."
+  exit 1
+fi
+
+# Remove dotfiles from rc file
+sed -i '/Dotfile installation start/,/Dotfile installation end/d' "${HOME}/.${1}rc"
+
+# Remove dotfiles bin directory
+rm -rf "${HOME}/dotfiles/bin"
+
+# Remove dotfiles src directory
+rm -rf "${HOME}/dotfiles/src"
+
+# Remove dotfiles directory
+rm -rf "${HOME}/dotfiles"
+
+echo "Uninstallation complete."
