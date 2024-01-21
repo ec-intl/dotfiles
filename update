@@ -1,19 +1,22 @@
 #!/bin/bash
 
-# Uninstall script for dotfiles
+# Script to update the current dotfiles installation
 
 # Check if the first argument is either 'zsh' or 'bash'
 if [ "$1" != "zsh" ] && [ "$1" != "bash" ]; then
-  echo "Uninstallation Error:: The first argument must be either 'zsh' or 'bash'."
+  echo "Update Error:: The first argument must be either 'zsh' or 'bash'."
   exit 1
 fi
 
 # Check if the dotfiles are installed
 ident=$(grep "Dotfile installation" < "${HOME}/.${1}rc" | wc -c)
 if [ "$ident" -eq 0 ]; then
-  echo "Uninstallation Error:: Dotfiles are not installed."
+  echo "Update Error:: Dotfiles are not installed."
   exit 1
 fi
+
+# Update dotfiles
+git pull origin main
 
 # Remove dotfiles from rc file
 if [ "$1" == "zsh" ]; then
@@ -22,8 +25,8 @@ else
     sed -i '/Dotfile installation start/,/Dotfile installation end/d' "${HOME}/.${1}rc"
 fi
 
-# Remove dotfiles directory
-rm -rf "${HOME}/dotfiles"
+# Install dotfiles
+./install "$1"
 
 . "./src/bash/functions"
-echo "Uninstallation complete."
+kmsg "Update complete."
