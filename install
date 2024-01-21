@@ -33,6 +33,12 @@ source "${src_dir}/aliases"
 [ -f ${HOME}/${1}-src/functions ] && source ${HOME}/${1}-src/functions
 # Add dotfiles bin directory to PATH
 export PATH="${HOME}/dotfiles/bin:${PATH}"
+# Loop through all files in the bin directory and make them executable
+for file in ${HOME}/dotfiles/bin/*; do
+  if [ -f "\${file}" ]; then
+    chmod +x "\${file}"
+  fi
+done
 EOF
 }
 git pull origin main
