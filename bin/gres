@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# This script replaces a pattern in a file, but does not change
+# the original file.
+
+# Usage:
+# 	gres pattern replacement file
+
+if [ $# -lt "3" ]
+then
+    echo "Usage: gres pattern replacement file"
+    exit 1
+fi
+
+pattern=$1
+replacement=$2
+file=$3
+
+if [ ! -f "$file" ]
+then
+    echo "$file is not a file."
+    exit 1
+fi
+
+# Use a null byte as the separator, which is unlikely to appear in the file.
+sed "s${IFS}${pattern}${IFS}${replacement}${IFS}g" "$file"
