@@ -152,6 +152,11 @@ gen_secret_key() {
   echo "$(openssl rand -base64 32)"
 }
 
+purge_docker() {
+  imsg "Purging all docker containers and images..."
+  docker rm -f "$(docker ps -aq)" && docker rmi -f "$(docker images -q)" && kmsg "Purge completed successfully."
+  [ ! $? ] && emsg "Purge failed."
+}
 
 # Run functions
 make_default_directories
