@@ -6,19 +6,19 @@ msg() {
   timestamp=$(TZ="America/St_Lucia" date '+%Y-%m-%d %H:%M:%S')
   case $1 in
     fail)
-      printf "\n%s \033[1;31m[  FAILURE  ]\033[0m %s\n\n" "$timestamp" "$2"
+      printf "\n%s  \033[1;31m[  FAILURE  ]\033[0m %s\n\n" "$timestamp" "$2"
       ;;
     ok)
-      printf "\n%s \033[1;32m[  SUCCESS  ]\033[0m %s\n\n" "$timestamp" "$2"
+      printf "\n%s  \033[1;32m[  SUCCESS  ]\033[0m %s\n\n" "$timestamp" "$2"
       ;;
     warn)
-      printf "\n%s \033[1;33m[  WARNING  ]\033[0m %s\n\n" "$timestamp" "$2"
+      printf "\n%s  \033[1;33m[  WARNING  ]\033[0m %s\n\n" "$timestamp" "$2"
       ;;
     info)
-      printf "\n%s \033[1;34m[INFORMATION]\033[0m %s\n\n" "$timestamp" "$2"
+      printf "\n%s  \033[1;34m[INFORMATION]\033[0m %s\n\n" "$timestamp" "$2"
       ;;
     *)
-      printf "\n%s [  NOTICE  ] %s\n\n"  "$timestamp" "$2"
+      printf "\n%s  [  NOTICE  ] %s\n\n"  "$timestamp" "$2"
       ;;
   esac
 }
