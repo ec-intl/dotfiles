@@ -40,7 +40,7 @@ wmsg() {
 greet() {
   # Get the current hour
   timestamp=$(TZ="America/St_Lucia" date '+%Y-%m-%d %H:%M:%S')
-  HOUR=$(date +%H)
+  HOUR=$(TZ="America/St_Lucia" date +%H)
   # If the hour is less than 12, it's morning
   if [ "$HOUR" -lt 12 ]; then
     printf "%s Good Morning" "$timestamp"
