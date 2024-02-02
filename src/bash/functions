@@ -153,8 +153,8 @@ gen_secret_key() {
 }
 
 purge_docker() {
-  imsg "Purging all docker containers and images..."
-  docker rm -f "$(docker ps -aq)" && docker rmi -f "$(docker images -q)" && kmsg "Purge completed successfully."
+  imsg "Purging all docker containers, images, and volumes..."
+  docker system prune -a && docker volume prune -a && kmsg "Purge completed successfully."
   [ ! $? ] && emsg "Purge failed."
 }
 
