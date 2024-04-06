@@ -113,11 +113,11 @@ gacp() {
 
   # Add all changes to the staging area
   imsg "Adding changes to the staging area..."
-  git add . && kmsg "Changes added to staging area" || emsg "Failed to add changes to the staging area."
+  git add . && kmsg "Changes added to staging area." || emsg "Failed to add changes to the staging area."
 
   # Commit the changes
   imsg "Committing changes..."
-  git commit -m "$message" || emsg "Failed to commit changes."
+  git commit -m "$message" && ksmg "Changes committed successfully." || emsg "Failed to commit changes."
 
   imsg "Pushing all changes to GitHub..."
   # Check if the upstream origin should be set
