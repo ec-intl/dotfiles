@@ -112,22 +112,22 @@ gacp() {
   done
 
   # Add all changes to the staging area
-  git add .
+  imsg "Adding changes to the staging area..."
+  git add . && kmsg "Changes added to staging area" || emsg "Failed to add changes to the staging area."
 
   # Commit the changes
-  git commit -m "$message"
+  imsg "Committing changes..."
+  git commit -m "$message" || emsg "Failed to commit changes."
 
+  imsg "Pushing all changes to GitHub..."
   # Check if the upstream origin should be set
   if $set_upstream; then
       # Push the changes to the remote repository and set the upstream branch to the current branch
-      git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"
+      git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)" && ksmg "Push and set upstream completed successfully" || emsg "Failed to push changes and set upstream."
     else
       # Push the changes to the remote repository
-      git push
+      git push && kmsg "Push completed successfully." || emsg "Failed to push changes."
   fi
-  imsg "Pushing all changes to GitHub..."
-  git add . && git commit -m "$1" && git push && kmsg "Push completed succssfully."
-  [ ! $? ] && emsg "Push failed."
 }
 
 
