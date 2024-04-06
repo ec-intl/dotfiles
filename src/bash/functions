@@ -110,10 +110,6 @@ gacp() {
     esac
   done
 
-  echo $? && echo $set_upstream && echo $1
-  echo $message
-  raise "Commit message is required."
-
   # Add all changes to the staging area
   git add .
 
