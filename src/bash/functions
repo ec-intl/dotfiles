@@ -119,7 +119,7 @@ gacp() {
   imsg "Committing changes..."
   git commit -m "$message" && kmsg "Changes committed successfully." || emsg "Failed to commit changes."
 
-  imsg "Pushing all changes to GitHub..."
+  imsg "Pushing all changes to the GitHub repository..."
   # Check if the upstream origin should be set
   if $set_upstream; then
       # Push the changes to the remote repository and set the upstream branch to the current branch
