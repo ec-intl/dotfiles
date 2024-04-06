@@ -86,9 +86,71 @@ extract() {
 
 # Git add commit and push
 gacp() {
-  imsg "Pushing all changes to GitHub..."
-  git add . && git commit -m "$1" && git push && kmsg "Push completed succssfully."
-  [ ! $? ] && emsg "Push failed."
+  # This function automates the process of adding, committing, and pushing changes to a Git repository.
+  # It takes an optional commit message as the first command-line argument. If no message is provided, it uses "minor update" as the default message.
+  # It also accepts an optional -u flag to set the upstream origin to the current branch.
+
+  # Default commit message
+  message="minor update"
+
+  # Default upstream setting
+  set_upstream=false
+
+  # Check if the first argument is a commit message or an option
+  if [[ $# -gt 0 ]] && [[ $1 != -* ]]; then
+    message=$1
+    shift
+  fi
+
+  # Parse command-line options
+  while getopts u option; do
+    case "${option}"
+      in
+        u) set_upstream=true;;
+        *) wmsg "Invalid option: -${OPTARG}.";;
+    esac
+  done
+
+  # Add all changes to the staging area
+  imsg "Adding changes to the staging area..."
+  (git add . && kmsg "Changes added to staging area.") || emsg "Failed to add changes to the staging area."
+
+  # Commit the changes
+  imsg "Committing changes..."
+  (git commit -m "$message" && kmsg "Changes committed.") || emsg "Failed to commit changes."
+
+  imsg "Pushing all changes to the GitHub repository..."
+  # Check if the upstream origin should be set
+  if $set_upstream; then
+      # Push the changes to the remote repository and set the upstream branch to the current branch
+      (git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)" && ksmg "Push and set upstream completed.") || emsg "Failed to push changes and set upstream."
+    else
+      # Push the changes to the remote repository
+      (git push && kmsg "Push completed.") || emsg "Failed to push changes."
+  fi
+}
+
+
+gres() {
+  # This script replaces a pattern in a file, but does not change
+  # the original file.
+
+  # Usage:
+  # 	gres pattern replacement file
+
+  if [ $# -lt "3" ]; then
+    emsg "Usage: gres pattern replacement file"
+    else
+      pattern=$1
+      replacement=$2
+      file=$3
+    if [ ! -f "$file" ]; then
+      emsg "$file is not a file."
+      else
+        # Use a null byte as the separator, which is unlikely to appear in the file.
+        sed "s${IFS}${pattern}${IFS}${replacement}${IFS}g" "$file"
+    fi
+  fi
 }
 
 
@@ -110,7 +172,7 @@ make_default_directories() {
 
 
 # Make a python virtual environment
-python_venv() {
+pyvenv() {
   # shellcheck disable=SC1091
   python -m venv "$1" && . "$1/bin/activate"
 }
