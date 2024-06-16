@@ -1,7 +1,7 @@
 # dotfiles 🚀
 
 [![Lint Codebase](https://github.com/ec-intl/dotfiles/actions/workflows/linter.yml/badge.svg)](https://github.com/ec-intl/dotfiles/actions/workflows/linter.yml)
-[![Guard](https://github.com/ec-intl/template-repository/actions/workflows/guard.yml/badge.svg)](https://github.com/ec-intl/template-repository/actions/workflows/guard.yml)
+[![Guard](https://github.com/ec-intl/dotfiles/actions/workflows/guard.yml/badge.svg)](https://github.com/ec-intl/dotfiles/actions/workflows/guard.yml)
 
 ## About
 
