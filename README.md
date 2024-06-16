@@ -1,6 +1,7 @@
 # dotfiles 🚀
 
 [![Lint Codebase](https://github.com/ec-intl/dotfiles/actions/workflows/linter.yml/badge.svg)](https://github.com/ec-intl/dotfiles/actions/workflows/linter.yml)
+[![Guard](https://github.com/ec-intl/template-repository/actions/workflows/guard.yml/badge.svg)](https://github.com/ec-intl/template-repository/actions/workflows/guard.yml)
 
 ## About
 
@@ -88,22 +89,24 @@ Here is the dotfiles's directory structure (note that Zsh uses the bash function
 
 ### Dotfiles Directory Structure
 
-- src
-  - bash
-    - aliases
-    - functions
-    - env.env
-  - zsh
-    - aliases
-    - env.env
-- bin
-  - gres: This script replaces a pattern in a file, but does not change the file's contents.
-- install
-- License
-- README.md
-- run-linter
-- uninstall
-- update
+```plaintext
+|--- src
+    |--- bash
+        |--- aliases
+        |--- functions
+        |--- env.env
+    |--- zsh
+        |--- aliases
+        |--- env.env
+|--- bin
+    |--- gres: This script replaces a pattern in a file, but does not change the file's contents.
+|--- install
+|--- License
+|--- README.md
+|--- run-linter
+|--- uninstall
+|--- update
+```
 
 ## Further Information
 

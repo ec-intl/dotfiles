@@ -1,0 +1,20 @@
+---
+  name: Guard Main Branch
+
+  on:
+    pull_request:
+      types:
+        - auto_merge_enabled
+      branches:
+        - main
+    merge_group:
+      branches:
+        - main
+
+  permissions:
+    contents: read
+
+  jobs:
+    guardian-jobs:
+      uses: ec-intl/template-repository/.github/workflows/guard_template.yml@cm/9/add-a-guardian-template
+      secrets: inherit
