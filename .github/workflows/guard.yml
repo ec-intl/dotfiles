@@ -16,5 +16,5 @@
 
   jobs:
     guardian-jobs:
-      uses: ec-intl/template-repository/.github/workflows/guard_template.yml@cm/9/add-a-guard-template
+      uses: ec-intl/workflow-templates/.github/workflows/guard_template.yml@v1.0.0
       secrets: inherit
