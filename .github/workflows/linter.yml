@@ -11,14 +11,15 @@ name: Lint Codebase
 on:
   pull_request:
     types: [auto_merge_enabled]
-    branches: [main]
+    branches: [staging]
+  merge_group:
 
 jobs:
   run-lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # Full git history is needed to get a proper
           # list of changed files within `super-linter`
