@@ -8,8 +8,6 @@
       branches:
         - main
     merge_group:
-      branches:
-        - main
 
   permissions:
     contents: read
