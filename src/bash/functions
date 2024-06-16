@@ -163,7 +163,7 @@ make_default_directories() {
     fi
   }
   # shellcheck disable=SC3030
-  directories=( Downloads bin lib src pysrc )
+  directories=( Downloads bin lib src )
   # shellcheck disable=SC3054
   for dir in "${directories[@]}"; do
     makedir "$dir"
