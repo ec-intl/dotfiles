@@ -123,7 +123,7 @@ gacp() {
   # Check if the upstream origin should be set
   if $set_upstream; then
       # Push the changes to the remote repository and set the upstream branch to the current branch
-      (git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)" && ksmg "Push and set upstream completed.") || emsg "Failed to push changes and set upstream."
+      (git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)" && kmsg "Push and set upstream completed.") || emsg "Failed to push changes and set upstream."
     else
       # Push the changes to the remote repository
       (git push && kmsg "Push completed.") || emsg "Failed to push changes."
