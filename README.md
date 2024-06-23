@@ -1,7 +1,15 @@
 # dotfiles 🚀
 
-[![Lint Codebase](https://github.com/ec-intl/dotfiles/actions/workflows/linter.yml/badge.svg)](https://github.com/ec-intl/dotfiles/actions/workflows/linter.yml)
-[![Guard](https://github.com/ec-intl/dotfiles/actions/workflows/guard.yml/badge.svg)](https://github.com/ec-intl/dotfiles/actions/workflows/guard.yml)
+## Project Status
+
+Welcome to our project! Here's the current status of our workflows:
+
+| Workflow | Status |
+|----------|--------|
+| **Continuous Deployment** | [![Continuous Deployment](https://github.com/ec-intl/workflow-templates/actions/workflows/cd.yml/badge.svg)](https://github.com/ec-intl/workflow-templates/actions/workflows/cd.yml) |
+| **Guard Main Branch** | [![Guard Main](https://github.com/ec-intl/workflow-templates/actions/workflows/guard.yml/badge.svg)](https://github.com/ec-intl/workflow-templates/actions/workflows/guard.yml) |
+| **Lint Codebase** | [![Lint Codebase](https://github.com/ec-intl/workflow-templates/actions/workflows/super-linter.yml/badge.svg)](https://github.com/ec-intl/workflow-templates/actions/workflows/super-linter.yml) |
+| **Release Log** | [![Release Log](https://github.com/ec-intl/workflow-templates/actions/workflows/release-log.yml/badge.svg)](https://github.com/ec-intl/workflow-templates/actions/workflows/release-log.yml) |
 
 ## About
 
