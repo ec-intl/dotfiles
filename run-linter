@@ -14,7 +14,6 @@ rsync -r ./src ./.github "$tmp_dir"
 if docker run --rm \
 -e RUN_LOCAL=true \
 -e USE_FIND_ALGORITHM=true \
---env-file ".github/super-linter.env" \
 -v "${tmp_dir}:/tmp/lint" github/super-linter; then
     kmsg "Linting Tests ==> PASSED."
 else
