@@ -18,7 +18,7 @@ msg() {
       printf "\n%s  \033[1;34m[INFORMATION]\033[0m %s\n\n" "$timestamp" "$2"
       ;;
     *)
-      printf "\n%s  [  NOTICE  ] %s\n\n"  "$timestamp" "$2"
+      printf "\n%s  [  NOTICE  ] %s\n\n"  "$timestamp" "$1"
       ;;
   esac
 }
@@ -93,23 +93,12 @@ gacp() {
   # Default commit message
   message="minor update"
 
-  # Default upstream setting
-  set_upstream=false
+  # If there is an argument, set the message to the argument
 
   # Check if the first argument is a commit message or an option
-  if [[ $# -gt 0 ]] && [[ $1 != -* ]]; then
+  if [[ $# -gt 0 ]]; then
     message=$1
-    shift
   fi
-
-  # Parse command-line options
-  while getopts u option; do
-    case "${option}"
-      in
-        u) set_upstream=true;;
-        *) wmsg "Invalid option: -${OPTARG}.";;
-    esac
-  done
 
   # Add all changes to the staging area
   imsg "Adding changes to the staging area..."
@@ -121,13 +110,18 @@ gacp() {
 
   imsg "Pushing all changes to the GitHub repository..."
   # Check if the upstream origin should be set
-  if $set_upstream; then
-      # Push the changes to the remote repository and set the upstream branch to the current branch
-      (git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)" && kmsg "Push and set upstream completed.") || emsg "Failed to push changes and set upstream."
-    else
-      # Push the changes to the remote repository
-      (git push && kmsg "Push completed.") || emsg "Failed to push changes."
-  fi
+  {
+    (git push && kmsg "Push completed.") \
+    || \
+    ( \
+      git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)" \
+      && \
+      kmsg "Push and set upstream completed." \
+    ) \
+    || \
+    emsg "Failed to push changes to the remote repository."
+    # Push the changes to the remote repository
+  }
 }
 
 
