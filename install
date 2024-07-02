@@ -35,13 +35,17 @@ source "${src_dir}/aliases"
 # Add dotfiles bin directory to PATH
 export PATH="\${HOME}/dotfiles/bin:\${PATH}"
 # Add functions
-[ -d "\${HOME}/bash-src/src" ] && cd "\${HOME}/bash-src/" && git switch main > /dev/null &&  git pull > /dev/null && make all
-[ -d "\${HOME}/awk-src/scripts" ] && cd "\${HOME}/awk-src/" && git switch main > /dev/null &&  git pull > /dev/null
-cd "\${HOME}/dotfiles/" && git switch main > /dev/null && git pull > /dev/null && cd ~
+[ -d "\${HOME}/bash-src/src" ] && cd "\${HOME}/bash-src/src" && git switch main &> /dev/null &&  git pull &> /dev/null && {
+  for file in *; do
+  . "$file"
+}
+done
+[ -d "\${HOME}/awk-src/scripts" ] && cd "\${HOME}/awk-src/" && git switch main &> /dev/null &&  git pull &> /dev/null
+cd "\${HOME}/dotfiles/" && git switch main &> /dev/null && git pull &> /dev/null && cd ~
 # Dotfile installation end
 EOF
 }
-git pull origin main
+git pull origin main &> /dev/null
 . "./src/bash/functions"
 imsg "Installing ${1}..."
 update_rc_file "$1"
