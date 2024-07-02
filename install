@@ -35,8 +35,8 @@ source "${src_dir}/aliases"
 # Add dotfiles bin directory to PATH
 export PATH="\${HOME}/dotfiles/bin:\${PATH}"
 # Add functions
-[ -d \${HOME}/bash-src/src ] &&  cd "\${HOME}/bash-src/" && $(git switch main; git pull;) && make all && cd ~
-[ -d "\${HOME}/awk-src/scripts" ] cd "\${HOME}/awk-src/" && $(git switch main; git pull;) && cd ~
+[ -d \${HOME}/bash-src/src ] &&  cd "\${HOME}/bash-src/" && \$(git switch main; git pull;) && make all && cd ~
+[ -d "\${HOME}/awk-src/scripts" ] cd "\${HOME}/awk-src/" && \$(git switch main; git pull;) && cd ~
 cd "\${HOME}/dotfiles/" && $(git switch main; git pull;) && cd ~
 # Dotfile installation end
 EOF
