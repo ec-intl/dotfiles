@@ -37,7 +37,7 @@ export PATH="\${HOME}/dotfiles/bin:\${PATH}"
 # Add functions
 [ -d "\${HOME}/bash-src/src" ] && cd "\${HOME}/bash-src/src" && git switch main &> /dev/null &&  git pull &> /dev/null && {
   for file in *; do
-  . "$file"
+  . "\$file"
 }
 done
 [ -d "\${HOME}/awk-src/scripts" ] && cd "\${HOME}/awk-src/" && git switch main &> /dev/null &&  git pull &> /dev/null
