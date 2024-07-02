@@ -37,9 +37,9 @@ export PATH="\${HOME}/dotfiles/bin:\${PATH}"
 # Add functions
 [ -d "\${HOME}/bash-src/src" ] && cd "\${HOME}/bash-src/src" && git switch main &> /dev/null &&  git pull &> /dev/null && {
   for file in *; do
-  . "\$file"
+    source "\$BASHSRCPATH""src/\$file"
+  done
 }
-done
 [ -d "\${HOME}/awk-src/scripts" ] && cd "\${HOME}/awk-src/" && git switch main &> /dev/null &&  git pull &> /dev/null
 cd "\${HOME}/dotfiles/" && git switch main &> /dev/null && git pull &> /dev/null && cd ~
 # Dotfile installation end
