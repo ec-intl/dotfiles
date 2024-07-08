@@ -32,16 +32,22 @@ source "${src_dir}/aliases"
 [ -f "\${HOME}/${1}-src/aliases" ] && source "\${HOME}/${1}-src/aliases"
 [ -d "\${HOME}/bash-src/src" ] && export BASHSRCPATH="\${HOME}/bash-src/"
 [ -d "\${HOME}/awk-src/scripts" ] && export AWKSRCPATH="\${HOME}/awk-src/"
+# save the current directory
+export SDIR=$(pwd)
 # Add dotfiles bin directory to PATH
 export PATH="\${HOME}/dotfiles/bin:\${PATH}"
 # Add functions
-[ -d \${HOME}/bash-src/src ] &&  cd "\${HOME}/bash-src/" && $(git switch main; git pull;) && make all && cd ~
-[ -d "\${HOME}/awk-src/scripts" ] cd "\${HOME}/awk-src/" && $(git switch main; git pull;) && cd ~
-cd "\${HOME}/dotfiles/" && $(git switch main; git pull;) && cd ~
+[ -d "\${HOME}/bash-src/src" ] && cd "\${HOME}/bash-src/src" && git switch main &> /dev/null &&  git pull &> /dev/null && {
+  for file in *; do
+    source "\$BASHSRCPATH""src/\$file"
+  done
+}
+[ -d "\${HOME}/awk-src/scripts" ] && cd "\${HOME}/awk-src/" && git switch main &> /dev/null &&  git pull &> /dev/null
+cd "\${HOME}/dotfiles/" && git switch main &> /dev/null && git pull &> /dev/null && cd "\$SDIR"
 # Dotfile installation end
 EOF
 }
-git pull origin main
+git pull origin main &> /dev/null
 . "./src/bash/functions"
 imsg "Installing ${1}..."
 update_rc_file "$1"
