@@ -33,7 +33,7 @@ source "${src_dir}/aliases"
 [ -d "\${HOME}/bash-src/src" ] && export BASHSRCPATH="\${HOME}/bash-src/"
 [ -d "\${HOME}/awk-src/scripts" ] && export AWKSRCPATH="\${HOME}/awk-src/"
 # save the current directory
-export SDIR=$(pwd)
+export SDIR=\$(pwd)
 # Add dotfiles bin directory to PATH
 export PATH="\${HOME}/dotfiles/bin:\${PATH}"
 # Add functions
