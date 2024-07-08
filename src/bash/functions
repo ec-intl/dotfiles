@@ -214,5 +214,23 @@ purge_docker() {
   [ ! $? ] && emsg "Purge failed."
 }
 
+# Docker compose functions
+# Start, stop, build, and up docker-compose services
+dcpu() {
+  docker-compose --profile "$1" up
+}
+
+dcpd() {
+  docker-compose --profile "$1" down
+}
+
+dcpb() {
+  docker-compose --profile "$1" build
+}
+
+dcpub() {
+  docker-compose --profile "$1" up --build
+}
+
 # Run functions
 make_default_directories

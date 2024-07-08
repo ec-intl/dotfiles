@@ -11,6 +11,7 @@ alias plb="python -m black -l 79 --experimental-string-processing"
 alias plp="autopep8 -ira --experimental --max-line-length 79"
 alias pli="isort -l 79 -j 4 --overwrite-in-place"
 alias my-env="source \$HOME/pysrc/\$USER/bin/activate"
+alias dcp="docker-compose --profile"
 # Python aliases
 #    Python
 alias pm="python -m"
