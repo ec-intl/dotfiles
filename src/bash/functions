@@ -232,5 +232,8 @@ dcpub() {
   docker-compose --profile "$1" up --build
 }
 
+dcpud() {
+  docker-compose --profile "$1" up -d
+}
 # Run functions
 make_default_directories
