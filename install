@@ -37,17 +37,17 @@ export SDIR=\$(pwd)
 # Add dotfiles bin directory to PATH
 export PATH="\${HOME}/dotfiles/bin:\${PATH}"
 # Add functions
-[ -d "\${HOME}/bash-src/src" ] && cd "\${HOME}/bash-src/src" && git switch main &> /dev/null &&  git pull &> /dev/null && {
+[ -d "\${HOME}/bash-src/src" ] && cd "\${HOME}/bash-src/src" && git checkout production &> /dev/null &&  git pull &> /dev/null && {
   for file in *; do
     source "\$BASHSRCPATH""src/\$file"
   done
 }
-[ -d "\${HOME}/awk-src/scripts" ] && cd "\${HOME}/awk-src/" && git switch main &> /dev/null &&  git pull &> /dev/null
-cd "\${HOME}/dotfiles/" && git switch main &> /dev/null && git pull &> /dev/null && cd "\$SDIR"
+[ -d "\${HOME}/awk-src/scripts" ] && cd "\${HOME}/awk-src/" && git checkout production &> /dev/null &&  git pull &> /dev/null
+cd "\${HOME}/dotfiles/" && git checkout production &> /dev/null && git pull &> /dev/null && cd "\$SDIR"
 # Dotfile installation end
 EOF
 }
-git pull origin main &> /dev/null
+git checkout production && git pull &> /dev/null
 . "./src/bash/functions"
 imsg "Installing ${1}..."
 update_rc_file "$1"

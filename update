@@ -16,7 +16,7 @@ if [ "$ident" -eq 0 ]; then
 fi
 
 # Update dotfiles
-git pull origin main
+git checkout production && git pull
 
 # Remove dotfiles from rc file
 if [ "$1" == "zsh" ]; then
