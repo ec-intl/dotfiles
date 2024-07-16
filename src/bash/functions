@@ -217,23 +217,23 @@ purge_docker() {
 # Docker compose functions
 # Start, stop, build, and up docker-compose services
 dcpu() {
-  docker-compose --profile "$1" up
+  docker compose --profile "$1" up
 }
 
 dcpd() {
-  docker-compose --profile "$1" down
+  docker compose --profile "$1" down
 }
 
 dcpb() {
-  docker-compose --profile "$1" build
+  docker compose --profile "$1" build
 }
 
 dcpub() {
-  docker-compose --profile "$1" up --build
+  docker compose --profile "$1" up --build
 }
 
 dcpud() {
-  docker-compose --profile "$1" up -d
+  docker compose --profile "$1" up -d
 }
 # Run functions
 make_default_directories
