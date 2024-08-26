@@ -15,7 +15,7 @@
   
   jobs:
     ci-tasks:
-      uses: ec-intl/workflow-templates/.github/workflows/ci_template.yml@v1
+      uses: ec-intl/workflow-templates/.github/workflows/ci_template.yml@testing
       with:
         runner-name: 'za-3'
       secrets: inherit

@@ -13,5 +13,5 @@
   
   jobs:
     linting-jobs:
-      uses: ec-intl/workflow-templates/.github/workflows/super-linter_template.yml@v1
+      uses: ec-intl/workflow-templates/.github/workflows/super-linter_template.yml@testing
       secrets: inherit
