@@ -187,9 +187,11 @@ encrypt() {
 decrypt() {
   imsg "Decrypting ${1}..."
   outfile="${1//.ecr/}"
-  openssl aes-256-cbc -pbkdf2 -d -in "$1" -out "$outfile"
-  [ -f "$outfile" ] && kmsg "Decryption successful."
-  [ ! $? ] && emsg "Decryption failed"
+  openssl aes-256-cbc -pbkdf2 -d -in "$1" -out "$outfile" || {
+    emsg "Decryption failed"
+    return 1
+  }
+  kmsg "Decryption successful."
 }
 
 
