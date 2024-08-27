@@ -1,6 +1,6 @@
 ---
   name: Guard Main Branch
-  
+
   on:
     pull_request:
       types:
@@ -8,11 +8,11 @@
       branches:
         - main
     merge_group:
-  
+
   permissions:
     contents: read
-  
+
   jobs:
     guardian-jobs:
-      uses: ec-intl/workflow-templates/.github/workflows/guard_template.yml@v1
+      uses: ec-intl/.github/.github/workflows/guard_template.yml@v1.0.0
       secrets: inherit
