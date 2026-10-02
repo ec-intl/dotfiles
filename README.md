@@ -49,6 +49,41 @@ To install the dotfiles, clone this repository to your 🏠 📂 and then 🏃 t
 
 Once you complete the installation steps, you will see a welcome message 📜.
 
+## Messages in scripts and containers
+
+The shared message functions live in `src/bash/messages`. A script can load
+this file to use the existing colours and timestamps without running terminal
+setup or creating directories:
+
+```bash
+source "$HOME/dotfiles/src/bash/messages"
+msg info "Starting the tests."
+kmsg "The tests passed."
+wmsg "A dependency is missing."
+emsg "The tests failed."
+```
+
+`msg` accepts `fail`, `ok`, `warn`, or `info` followed by the message. Passing
+only a message prints a notice. The shortcuts `emsg`, `kmsg`, `wmsg`, and
+`imsg` keep their existing meanings. Message text, spacing, colours, and the
+`America/St_Lucia` timestamp timezone are unchanged.
+
+The regular `src/bash/functions` file loads these same definitions. Existing
+terminal configuration therefore keeps using the same function names. The
+`ptc` alias remains the existing pytest command.
+
+To check an unpublished checkout, run these commands from its repository root:
+
+```bash
+bash -c 'source ./src/bash/messages; imsg "Shared messages loaded."; kmsg "Bash check complete."'
+zsh -f -c 'source ./src/bash/messages; imsg "Shared messages loaded."; kmsg "Zsh check complete."'
+```
+
+Use direct sourcing while testing a feature branch: `install` and `update`
+select the `production` branch. For containers, include a reviewed dotfiles
+revision containing this file in the image and explicitly source the file in
+the script. A noninteractive script should not depend on `.bashrc` being read.
+
 ## Uninstallation
 
 To uninstall the dotfiles, run the following commands:
@@ -100,6 +135,7 @@ Here is the dotfiles's directory structure (note that Zsh uses the bash function
     |--- bash
         |--- aliases
         |--- functions
+        |--- messages
         |--- env.env
     |--- zsh
         |--- aliases
