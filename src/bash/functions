@@ -3,7 +3,8 @@
 
 # Load messages from this checkout in either Bash or Zsh.
 if [ -n "${ZSH_VERSION:-}" ]; then
-  # shellcheck disable=SC2296,SC1091
+  # ShellCheck parses this as Bash; only Zsh evaluates this expansion.
+  # shellcheck disable=SC2296,SC2298,SC1091
   source "${${(%):-%x}:A:h}/messages" || return
 else
   # shellcheck source=src/bash/messages
