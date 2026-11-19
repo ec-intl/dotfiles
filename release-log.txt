@@ -1,0 +1,1 @@
+- fix: Promote staged workflow guard and checkout updates while preserving main history.
