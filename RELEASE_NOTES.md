@@ -4,7 +4,9 @@ Prepared from staging for human review on 2026-11-19. No tag, release, or deploy
 
 ## Included change record
 
-No reliable accumulated release log is available; use the net change inventory below and reconcile the release branch before publication.
+- fix: Promote staged workflow guard and checkout updates while preserving main history.
+
+These candidate notes are prepared on the release branch for review before promotion.
 
 ## Net change inventory
 
