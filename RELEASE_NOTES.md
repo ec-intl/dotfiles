@@ -1,3 +1,21 @@
+# dotfiles v1.4.0 — task-interface release candidate
+
+Supersedes the unpublished v1.3.5 proposal below because feature PR #98 adds
+repository task dispatch to the existing `dcpu` / `dcpub` interface. Retain
+preparation #93/#95 and release #94/#96; do not create a duplicate release track.
+
+The helper preserves ordinary Compose profiles, validates task names and returns
+task failures. Bash and Zsh tests cover task dispatch and legacy profile fallback.
+Review and merge #98 before final candidate qualification. Publish the approved
+helper before adopting the dependent ecisite #178 task commands.
+
+All unresolved public-workflow and credential prerequisites in #90 still apply.
+Release #96 is a blocked temporary-source draft and must not be merged. After
+preparation lands, open the actual staging-to-main promotion for #94 and close
+that temporary draft unmerged. Nothing is merged, published or installed here.
+
+## Earlier preparation record (retained)
+
 # dotfiles v1.3.5 — release candidate
 
 Prepared for review on 2026-11-25. This candidate has not been published.
