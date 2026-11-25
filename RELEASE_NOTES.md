@@ -16,7 +16,7 @@ that temporary draft unmerged. Nothing is merged, published or installed here.
 
 ## Earlier preparation record (retained)
 
-# dotfiles v1.3.5 — release candidate
+## dotfiles v1.3.5 — release candidate
 
 Prepared for review on 2026-11-25. This candidate has not been published.
 
