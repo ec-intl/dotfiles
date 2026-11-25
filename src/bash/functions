@@ -217,25 +217,35 @@ purge_docker() {
 }
 
 # Docker compose functions
-# Start, stop, build, and up docker-compose services
-dcpu() {
-  docker compose --profile "$1" up
+# Optional repository tasks keep orchestration behind the existing interface.
+_eci_compose() {
+  local operation="$1" task="${2:-}"
+  if [[ -z "$task" || "$task" == -* || "$task" == *[!a-zA-Z0-9_.-]* ]]; then
+    printf 'Usage: dcpu <task-or-profile> (letters, digits, dots, hyphens, underscores)\n' >&2
+    return 2
+  fi
+  if [[ -f .eci/compose-tasks ]] && grep -Fxq -- "$task" .eci/compose-tasks; then
+    if [[ ! -x .eci/compose-task ]]; then
+      printf 'Registered task requires executable .eci/compose-task\n' >&2
+      return 2
+    fi
+    ./.eci/compose-task "$operation" "$task"
+    return $?
+  fi
+  case "$operation" in
+    up) docker compose --profile "$task" up ;;
+    down) docker compose --profile "$task" down ;;
+    build) docker compose --profile "$task" build ;;
+    up-build) docker compose --profile "$task" up --build ;;
+    up-detached) docker compose --profile "$task" up -d ;;
+    *) return 2 ;;
+  esac
 }
 
-dcpd() {
-  docker compose --profile "$1" down
-}
-
-dcpb() {
-  docker compose --profile "$1" build
-}
-
-dcpub() {
-  docker compose --profile "$1" up --build
-}
-
-dcpud() {
-  docker compose --profile "$1" up -d
-}
+dcpu() { _eci_compose up "${1:-}"; }
+dcpd() { _eci_compose down "${1:-}"; }
+dcpb() { _eci_compose build "${1:-}"; }
+dcpub() { _eci_compose up-build "${1:-}"; }
+dcpud() { _eci_compose up-detached "${1:-}"; }
 # Run functions
 make_default_directories
