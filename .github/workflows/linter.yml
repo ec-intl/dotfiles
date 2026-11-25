@@ -11,16 +11,19 @@
   
   on:
     pull_request:
-      types: [auto_merge_enabled]
+      types: [opened, synchronize, reopened, auto_merge_enabled]
       branches: [staging]
     merge_group:
   
   jobs:
     run-lint:
+      permissions:
+        contents: read
+        statuses: write
       runs-on: ubuntu-latest
       steps:
         - name: Checkout code
-          uses: actions/checkout@v4
+          uses: actions/checkout@v6
           with:
             # Full git history is needed to get a proper
             # list of changed files within `super-linter`

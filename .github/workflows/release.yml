@@ -1,0 +1,14 @@
+---
+name: Release
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+concurrency:
+  group: release
+  cancel-in-progress: false
+jobs:
+  release-tasks:
+    uses: ec-intl/workflow-templates/.github/workflows/make-release_template.yml@production
+    secrets: inherit
