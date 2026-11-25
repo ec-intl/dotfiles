@@ -4,9 +4,10 @@ Prepared for review on 2026-11-25. This candidate has not been published.
 
 ## Candidate scope
 
-- Merged PR #92: ci: use production workflow templates (https://github.com/ec-intl/dotfiles/pull/92).
+- Merged PR #92: ci: use production workflow templates ([pull request](https://github.com/ec-intl/dotfiles/pull/92)).
 
 Already on staging:
+
 - bug: Updates decrypt function (#81)
 - fix: update checkout action and correct guard workflow checks (#83)
 - release: prepare dotfiles v1.3.5 (#86)
@@ -27,18 +28,18 @@ Merge the separate preparation PR into staging first. Review the actual staging-
 
 ## Previous preparation record
 
-# dotfiles v1.3.5 — release candidate
+### Historical: dotfiles v1.3.5 — release candidate
 
 Prepared from staging for human review on 2026-11-19. No tag, release, or deployment has been published.
 
-## Included change record
+#### Historical: Included change record
 
 - fix: Promote staged workflow guard and checkout updates while preserving main history.
 - release: Set VERSION to 1.3.5 and add release and release-log automation.
 
 These candidate notes are prepared on the release branch for review before promotion.
 
-## Net change inventory
+#### Historical: Net change inventory
 
 - `.github/workflows/guard.yml`: staged branch guards and checkout updates.
 - `.github/workflows/linter.yml`: staged lint updates, validation on PR updates,
@@ -50,7 +51,7 @@ These candidate notes are prepared on the release branch for review before promo
 - `VERSION`: set the release candidate version to 1.3.5.
 - `RELEASE_NOTES.md`: record the candidate scope and promotion prerequisites.
 
-## Promotion
+#### Historical: Promotion
 
 Review and merge the release-preparation PR into staging first. Before promoting staging → main:
 
@@ -62,8 +63,7 @@ Review and merge the release-preparation PR into staging first. Before promoting
 
 Then review staging → main. Keep auto-merge disabled.
 
-
-## Staging changes since the first audit
+#### Historical: Staging changes since the first audit
 
 - bug: Updates decrypt function (#81) (#82)
 - Merge branch 'main' into staging
