@@ -220,11 +220,12 @@ purge_docker() {
 # Optional repository tasks keep orchestration behind the existing interface.
 _eci_compose() {
   local operation="$1" task="${2:-}"
-  if [[ -z "$task" || "$task" == -* || "$task" == *[!a-zA-Z0-9_.-]* ]]; then
+  if [[ "$task" != '*' && ( -z "$task" || "$task" == -* || "$task" == *[!a-zA-Z0-9_.-]* ) ]]; then
     printf 'Usage: dcpu <task-or-profile> (letters, digits, dots, hyphens, underscores)\n' >&2
     return 2
   fi
-  if [[ -f .eci/compose-tasks ]] && grep -Fxq -- "$task" .eci/compose-tasks; then
+  # Compose's all-profile selector is never a repository task name.
+  if [[ "$task" != '*' && -f .eci/compose-tasks ]] && grep -Fxq -- "$task" .eci/compose-tasks; then
     if [[ ! -x .eci/compose-task ]]; then
       printf 'Registered task requires executable .eci/compose-task\n' >&2
       return 2

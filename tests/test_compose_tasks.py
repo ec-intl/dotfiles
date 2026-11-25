@@ -55,11 +55,26 @@ class ComposeTasks(unittest.TestCase):
                     run("dcpub ci-testing"),
                     ["compose", "--profile", "ci-testing", "up", "--build"],
                 )
+                profile_commands = {
+                    "dcpu": ["up"],
+                    "dcpub": ["up", "--build"],
+                    "dcpd": ["down"],
+                    "dcpb": ["build"],
+                    "dcpud": ["up", "-d"],
+                }
+                for helper, arguments in profile_commands.items():
+                    self.assertEqual(
+                        run(helper + " '*'"), ["compose", "--profile", "*"] + arguments
+                    )
                 (root / ".eci").mkdir()
-                (root / ".eci/compose-tasks").write_text("preview\n")
+                (root / ".eci/compose-tasks").write_text("preview\n*\n")
                 handler = root / ".eci/compose-task"
                 handler.write_text(binary.read_text())
                 handler.chmod(0o755)
+                for helper, arguments in profile_commands.items():
+                    self.assertEqual(
+                        run(helper + " '*'"), ["compose", "--profile", "*"] + arguments
+                    )
                 for helper, operation in [
                     ("dcpu", "up"),
                     ("dcpub", "up-build"),
