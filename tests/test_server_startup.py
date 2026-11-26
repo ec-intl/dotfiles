@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class ServerStartupTests(unittest.TestCase):
-    def run_start(self, branch="production", fail="", registered=False):
+    def run_start(self, branch="production", fail="", registered=False, conditional=False):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             home = root / "home"
@@ -38,8 +38,16 @@ class ServerStartupTests(unittest.TestCase):
                     '#!/bin/bash\necho "task $* $ECI_SERVER_IMAGES_READY" >> "$CALL_LOG"\n'
                 )
                 handler.chmod(0o755)
+            command = ["bash", str(ROOT / "bin/start-server"), "ecisite", branch]
+            if conditional:
+                command = [
+                    "bash", "-c",
+                    'source "$1"; if _eci_prepare_server_images ecisite production; '
+                    'then exit 0; else exit $?; fi',
+                    "test", str(ROOT / "src/bash/server-startup.sh"),
+                ]
             result = subprocess.run(
-                ["bash", str(ROOT / "bin/start-server"), "ecisite", branch],
+                command,
                 env=dict(
                     os.environ,
                     HOME=str(home),
@@ -53,7 +61,8 @@ class ServerStartupTests(unittest.TestCase):
                 text=True,
                 check=False,
             )
-            return result, log.read_text().splitlines(), (home / "deployments").exists()
+            calls = log.read_text().splitlines() if log.exists() else []
+            return result, calls, (home / "deployments").exists()
 
     def test_production_retains_prune_pulls_checkout_and_detached_start(self):
         result, calls, reports_exist = self.run_start()
@@ -107,3 +116,22 @@ class ServerStartupTests(unittest.TestCase):
                 self.assertTrue(reports_exist)
                 if not command.startswith("docker compose"):
                     self.assertFalse(any(" compose " in call for call in calls))
+
+    def test_conditional_preparation_propagates_failure(self):
+        for command in (
+            "sudo chmod 666 /var/run/docker.sock",
+            "docker system prune -af",
+            "aws ecr get-login-password --region us-east-2",
+        ):
+            with self.subTest(command=command):
+                result, calls, _ = self.run_start(fail=command, conditional=True)
+                self.assertEqual(result.returncode, 47, result.stderr)
+                self.assertFalse(any(call.startswith("docker pull") for call in calls))
+
+    def test_invalid_branch_has_no_external_side_effects(self):
+        for branch in ("-", "--help", "-production"):
+            with self.subTest(branch=branch):
+                result, calls, reports_exist = self.run_start(branch)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertEqual(calls, [])
+                self.assertFalse(reports_exist)

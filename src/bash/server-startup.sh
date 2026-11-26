@@ -7,13 +7,13 @@ _eci_prepare_server_images() (
   branch="$2"
   registry="${AWSECR:-${aws_ecr:-185299487714.dkr.ecr.us-east-2.amazonaws.com}}"
   reports="$HOME/deployments"
-  mkdir -p "$reports"
+  mkdir -p "$reports" || exit "$?"
   echo 'Preparing Docker access and reclaiming unused space...'
-  sudo chmod 666 /var/run/docker.sock
-  docker system prune -af
+  sudo chmod 666 /var/run/docker.sock || exit "$?"
+  docker system prune -af || exit "$?"
   echo "Authenticating to $registry..."
   aws ecr get-login-password --region us-east-2 |
-    docker login --username AWS --password-stdin "$registry"
+    docker login --username AWS --password-stdin "$registry" || exit "$?"
   echo "Pulling $repository:$branch and ECI proxy images..."
   # Keep the established image list. Each report retains its own output.
   for image in "$repository:$branch" ecisite:dante-proxy ecisite:squid-proxy; do
@@ -30,8 +30,8 @@ _eci_prepare_server_images() (
 
 _eci_start_server() (
   set -eo pipefail
-  if [[ $# -ne 2 || ! "$1" =~ ^[a-zA-Z0-9_.-]+$ || "$1" == .* ||
-        ! "$2" =~ ^[a-zA-Z0-9_.-]+$ || "$2" == .* ]]; then
+  if [[ $# -ne 2 || ! "$1" =~ ^[a-zA-Z0-9_.-]+$ || "$1" == .* || "$1" == -* ||
+        ! "$2" =~ ^[a-zA-Z0-9_.-]+$ || "$2" == .* || "$2" == -* ]]; then
     echo 'Usage: start-server <repository> <branch>' >&2
     exit 2
   fi
