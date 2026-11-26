@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+case "${1:-}" in up|up-build) ;; *) exit 2 ;; esac
+case "${2:-}" in
+  ci-testing)
+    docker run --rm --network none -v "$PWD:/work:ro" -w /work python:3.13-slim \
+      python -m unittest discover -s tests
+    ;;
+  ci-linting)
+    docker run --rm -e RUN_LOCAL=true -e USE_FIND_ALGORITHM=true \
+      -e MYPY_CACHE_DIR=/tmp/mypy-cache -e VALIDATE_ALL_CODEBASE=true \
+      -e VALIDATE_DOCKERFILE_HADOLINT=false -e VALIDATE_JSCPD=false \
+      -e VALIDATE_GITHUB_ACTIONS=false -e VALIDATE_HTML=false \
+      -e VALIDATE_PYTHON_BLACK=false \
+      -v "$PWD:/tmp/lint:ro" github/super-linter:v5
+    ;;
+  *) exit 2 ;;
+esac

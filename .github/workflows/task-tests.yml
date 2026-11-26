@@ -13,4 +13,4 @@ jobs:
       - uses: actions/checkout@v7
       - name: Install Zsh for shell compatibility checks
         run: sudo apt-get update && sudo apt-get install -y zsh
-      - run: python3 -m unittest discover -s tests -p 'test_compose_tasks.py'
+      - run: python3 -m unittest discover -s tests -p 'test_*.py'
