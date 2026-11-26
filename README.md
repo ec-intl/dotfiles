@@ -49,6 +49,26 @@ To install the dotfiles, clone this repository to your 🏠 📂 and then 🏃 t
 
 Once you complete the installation steps, you will see a welcome message 📜.
 
+## Container task interface
+
+Use `dcpu <task>` to perform a task and `dcpub <task>` to build and perform it.
+Existing Compose profiles, such as `dcpu production` and `dcpub ci-testing`,
+retain their behavior when no repository task is registered.
+
+A repository can list task names, one per line, in `.eci/compose-tasks` and
+provide an executable `.eci/compose-task` handler. The helpers call that handler
+with the operation (`up`, `up-build`, `up-detached`, `build`, or `down`) and task
+name, and return its exit status. The handler owns the Compose files, local
+isolation, interactive input, cleanup and failure reporting for its tasks.
+Only files in the current directory are consulted; no shell configuration is
+installed or sourced by dispatch. Treat task handlers as executable repository
+code, just like its existing build and container scripts.
+
+For example, ecisite provides `dcpu preview`, `dcpu preview-assets` and
+`dcpu preview-checks`. Use that repository's README for its supported tasks.
+After the approved dotfiles change is published, update the installed dotfiles
+before using repository tasks. This addition does not install itself.
+
 ## Uninstallation
 
 To uninstall the dotfiles, run the following commands:
