@@ -144,12 +144,29 @@ If you have any problems with the dotfiles, please open an issue in this reposit
 
 ## Site startup
 
-The installed `start-server <repository> <branch>` command preserves the existing
+The installed `start-server <repository> [branch]` command preserves the existing
 startup sequence: prepare Docker access, prune unused resources to reclaim disk
 space, authenticate, pull the application and ECI proxy images, update the
 checkout, and launch through the shared Compose interface. Staging runs in the
 foreground; other branches run detached. Failures stop startup and retain the
 pull reports in `~/deployments`; successful completion removes that directory.
+
+The branch defaults to `production` for all three commands:
+
+```bash
+start-server ecisite
+stop-server ecisite
+restart-server ecisite
+```
+
+Pass a branch explicitly when needed, for example `start-server ecisite staging`.
+`stop-server` calls the shared Compose `down` task without pulling or pruning.
+`restart-server` stops first and starts only if stopping succeeds.
+
+After updating an existing installation, open a new terminal or load the shared
+helpers with `source "$HOME/dotfiles/src/bash/functions"`. This adds the installed
+commands to PATH without duplicating that entry. Check availability with
+`command -v start-server stop-server restart-server`.
 
 For example, `start-server ecisite production` updates and starts the production
 checkout. Within an updated ecisite checkout, `dcpu production` uses the same

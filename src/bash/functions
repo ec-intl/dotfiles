@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
 
+# Keep installed commands available when an existing shell sources these helpers.
+case ":${PATH}:" in
+  *":${HOME}/dotfiles/bin:"*) ;;
+  *) export PATH="${HOME}/dotfiles/bin:${PATH}" ;;
+esac
+
 # Print color coded messages
 msg() {
   timestamp=$(TZ="America/St_Lucia" date '+%Y-%m-%d %H:%M:%S')

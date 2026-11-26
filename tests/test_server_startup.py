@@ -10,12 +10,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class ServerStartupTests(unittest.TestCase):
-    def run_start(self, branch="production", fail="", registered=False, conditional=False):
+    def run_start(
+        self, branch="production", fail="", registered=False, conditional=False,
+        action="start", repository="ecisite",
+    ):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             home = root / "home"
             repo = home / "ecisite"
             repo.mkdir(parents=True)
+            (home / "dotfiles").symlink_to(ROOT, target_is_directory=True)
             binary = root / "bin"
             binary.mkdir()
             log = root / "calls"
@@ -38,7 +42,14 @@ class ServerStartupTests(unittest.TestCase):
                     '#!/bin/bash\necho "task $* $ECI_SERVER_IMAGES_READY" >> "$CALL_LOG"\n'
                 )
                 handler.chmod(0o755)
-            command = ["bash", str(ROOT / "bin/start-server"), "ecisite", branch]
+            command = [
+                "bash", "-c",
+                'source "$HOME/dotfiles/src/bash/functions"; '
+                'source "$HOME/dotfiles/src/bash/functions"; "$@"',
+                "test", f"{action}-server", repository,
+            ]
+            if branch is not None:
+                command.append(branch)
             if conditional:
                 command = [
                     "bash", "-c",
@@ -135,3 +146,40 @@ class ServerStartupTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 2, result.stderr)
                 self.assertEqual(calls, [])
                 self.assertFalse(reports_exist)
+
+    def test_all_commands_default_to_production(self):
+        for action in ("start", "stop", "restart"):
+            with self.subTest(action=action):
+                result, calls, _ = self.run_start(branch=None, action=action)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn("docker compose --profile production "
+                              + ("down" if action == "stop" else "up -d"), calls)
+
+    def test_stop_only_stops_requested_profile(self):
+        for branch in ("production", "staging"):
+            result, calls, _ = self.run_start(branch, action="stop")
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(calls, [f"docker compose --profile {branch} down"])
+
+    def test_restart_stops_before_pruning_and_starting(self):
+        result, calls, _ = self.run_start("staging", action="restart")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(calls[0], "docker compose --profile staging down")
+        self.assertEqual(calls.count("docker system prune -af"), 1)
+        self.assertEqual(calls[-1], "docker compose --profile staging up")
+
+    def test_restart_aborts_if_stop_fails(self):
+        result, calls, _ = self.run_start(
+            action="restart", fail="docker compose --profile production down"
+        )
+        self.assertEqual(result.returncode, 47, result.stderr)
+        self.assertEqual(calls, ["docker compose --profile production down"])
+
+    def test_lifecycle_rejects_invalid_arguments_before_external_calls(self):
+        for action in ("start", "stop", "restart"):
+            for repository, branch in (("../other", "production"), ("ecisite", "")):
+                result, calls, _ = self.run_start(
+                    branch, action=action, repository=repository
+                )
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertEqual(calls, [])
