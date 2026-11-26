@@ -141,3 +141,21 @@ You can find more information about each dot file in this repository by reading 
 ## Troubleshooting
 
 If you have any problems with the dotfiles, please open an issue in this repository.
+
+## Site startup
+
+The installed `start-server <repository> <branch>` command preserves the existing
+startup sequence: prepare Docker access, prune unused resources to reclaim disk
+space, authenticate, pull the application and ECI proxy images, update the
+checkout, and launch through the shared Compose interface. Staging runs in the
+foreground; other branches run detached. Failures stop startup and retain the
+pull reports in `~/deployments`; successful completion removes that directory.
+
+For example, `start-server ecisite production` updates and starts the production
+checkout. Within an updated ecisite checkout, `dcpu production` uses the same
+image preparation. Its approved content migration is owned by ecisite, runs once,
+and preserves subsequent administration edits. The older instance-maker
+`start-server.sh` is a deprecated forwarding wrapper.
+
+Use `dcpu ci-testing` and `dcpu ci-linting` for local container checks. Tests replace
+server commands with isolated fixtures; they never prune the host or contact AWS.
