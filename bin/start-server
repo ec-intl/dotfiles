@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# The installed dotfiles command owns startup; instance-maker keeps a wrapper.
+set -eo pipefail
+dotfiles_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck disable=SC1091
+source "$dotfiles_root/src/bash/functions"
+# shellcheck disable=SC1091
+source "$dotfiles_root/src/bash/server-startup.sh"
+_eci_start_server "$@"
