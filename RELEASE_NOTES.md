@@ -1,3 +1,5 @@
+# dotfiles v1.4.0 — task-interface release candidate
+
 ## Public release automation correction — 2026-11-26
 
 Release publishing now runs locally using the built-in GitHub token, after any
@@ -14,8 +16,6 @@ publication is a separate outcome to verify after merge.
 
 The earlier preparation records below are historical; their shared-template and
 RPAT prerequisites are superseded for these two workflows.
-
-# dotfiles v1.4.0 — task-interface release candidate
 
 Supersedes the unpublished v1.3.5 proposal below because feature PR #98 adds
 repository task dispatch to the existing `dcpu` / `dcpub` interface. Retain
