@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Use the shared server lifecycle implementation.
+set -eo pipefail
+dotfiles_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck disable=SC1091
+source "$dotfiles_root/src/bash/functions"
+# shellcheck disable=SC1091
+source "$dotfiles_root/src/bash/server-startup.sh"
+_eci_restart_server "$@"

@@ -28,15 +28,21 @@ _eci_prepare_server_images() (
   done
 )
 
+_eci_validate_server_arguments() {
+  local command="$1"
+  shift
+  if [[ $# -lt 1 || $# -gt 2 || ! "$1" =~ ^[a-zA-Z0-9_.-]+$ || "$1" == .* || "$1" == -* ||
+        ! "${2-production}" =~ ^[a-zA-Z0-9_.-]+$ || "${2-production}" == .* || "${2-production}" == -* ]]; then
+    echo "Usage: $command <repository> [branch] (default: production)" >&2
+    return 2
+  fi
+}
+
 _eci_start_server() (
   set -eo pipefail
-  if [[ $# -ne 2 || ! "$1" =~ ^[a-zA-Z0-9_.-]+$ || "$1" == .* || "$1" == -* ||
-        ! "$2" =~ ^[a-zA-Z0-9_.-]+$ || "$2" == .* || "$2" == -* ]]; then
-    echo 'Usage: start-server <repository> <branch>' >&2
-    exit 2
-  fi
+  _eci_validate_server_arguments start-server "$@" || exit "$?"
   repository="$1"
-  branch="$2"
+  branch="${2-production}"
   _eci_prepare_server_images "$repository" "$branch"
   echo "Updating $repository checkout to $branch..."
   cd "$HOME/$repository"
@@ -52,4 +58,22 @@ _eci_start_server() (
   fi
   rm -rf "$HOME/deployments/"
   echo 'Server started successfully.'
+)
+
+_eci_stop_server() (
+  set -eo pipefail
+  _eci_validate_server_arguments stop-server "$@" || exit "$?"
+  repository="$1"
+  branch="${2-production}"
+  cd "$HOME/$repository" || exit "$?"
+  echo "Stopping $repository ($branch)..."
+  dcpd "$branch" || exit "$?"
+  echo 'Server stopped successfully.'
+)
+
+_eci_restart_server() (
+  set -eo pipefail
+  _eci_validate_server_arguments restart-server "$@" || exit "$?"
+  _eci_stop_server "$@" || exit "$?"
+  _eci_start_server "$@"
 )
