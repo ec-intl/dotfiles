@@ -12,7 +12,7 @@ _eci_prepare_server_images() (
   sudo chmod 666 /var/run/docker.sock
   docker system prune -af
   echo "Authenticating to $registry..."
-  aws ecr get-login-password --region "${AWS_REGION:-us-east-2}" |
+  aws ecr get-login-password --region us-east-2 |
     docker login --username AWS --password-stdin "$registry"
   echo "Pulling $repository:$branch and ECI proxy images..."
   # Keep the established image list. Each report retains its own output.
