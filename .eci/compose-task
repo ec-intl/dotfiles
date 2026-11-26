@@ -9,6 +9,7 @@ case "$endpoint" in
 esac
 case "${2:-}" in
   ci-testing)
+    bash scripts/test-release-staging.sh
     docker --context "$context" run --rm --network none -v "$PWD:/work:ro" -w /work python:3.13-slim \
       python -m unittest discover -s tests
     ;;

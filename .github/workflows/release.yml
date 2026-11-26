@@ -18,6 +18,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          token: ${{ secrets.RPAT || github.token }}
       - name: Publish the reviewed main commit
         env:
           GH_TOKEN: ${{ github.token }}
@@ -41,3 +42,6 @@ jobs:
           fi
           gh release create "$tag" --target "$GITHUB_SHA" \
             --title "$tag" --generate-notes
+      - name: Synchronize staging with the released main commit
+        shell: bash
+        run: bash scripts/sync-release-staging.sh "$GITHUB_SHA"
