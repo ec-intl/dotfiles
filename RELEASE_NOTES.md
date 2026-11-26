@@ -19,7 +19,7 @@ performed by this preparation.
 
 ## Previous release record
 
-# dotfiles v1.4.0 — task-interface release candidate
+## dotfiles v1.4.0 — task-interface release candidate
 
 ## Shared startup command
 
