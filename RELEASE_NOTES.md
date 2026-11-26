@@ -11,6 +11,9 @@ Preparation #110; release #111. Requires approval and merge of #109 (#108).
 - Existing installations can load the command path by sourcing the shared
   functions; repeated loading does not duplicate that path entry.
 
+- Restore the guarded post-release staging reset from the shared template.
+  Refuse synchronization when staging contains new content or moves concurrently.
+
 The additional public lifecycle commands warrant a minor version increment.
 Implementation tests and lint passed locally. Validate the integrated staging
 candidate after approval, then promote staging to main through the final release
