@@ -1,4 +1,25 @@
-# dotfiles v1.4.0 — task-interface release candidate
+# dotfiles v1.5.0 — server command release candidate
+
+Preparation #110; release #111. Requires approval and merge of #109 (#108).
+
+- Expose start-server, stop-server and restart-server in the terminal through
+  the installed shared helpers. All accept a repository and optional branch;
+  the default branch is production.
+- Preserve startup pruning, pulls, foreground staging and detached operation
+  otherwise. Stop uses the shared down task. Restart stops first and aborts if
+  stopping fails.
+- Existing installations can load the command path by sourcing the shared
+  functions; repeated loading does not duplicate that path entry.
+
+The additional public lifecycle commands warrant a minor version increment.
+Implementation tests and lint passed locally. Validate the integrated staging
+candidate after approval, then promote staging to main through the final release
+PR. Keep #111 open until final promotion. No release or server operation has been
+performed by this preparation.
+
+## Previous release record
+
+## dotfiles v1.4.0 — task-interface release candidate
 
 ## Shared startup command
 
