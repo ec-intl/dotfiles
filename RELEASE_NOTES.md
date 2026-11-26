@@ -1,5 +1,20 @@
 # dotfiles v1.4.0 — task-interface release candidate
 
+## Shared startup command
+
+Include #104 (issue #103) in this unpublished candidate. The installed
+`start-server <repository> <branch>` command preserves pre-pull disk-space pruning,
+socket preparation, application and proxy pulls, checkout update, foreground
+staging and detached production. Improvements cover progress messages, separate
+pull reports, failure propagation and reusable preparation. The instance-maker
+script becomes a deprecated forwarding wrapper; ecisite retains its separately
+approved one-time content migration. No deployment-policy change is included.
+
+Local container tests and lint passed. Validate the integrated candidate before
+promotion. Keep preparation #100 and release #101/#102 reviewable; the temporary
+final source remains blocked and must be replaced with the actual staging-to-main
+PR after preparation lands. No release, installation or deployment was performed.
+
 ## Public release automation correction — 2026-11-26
 
 Release publishing now runs locally using the built-in GitHub token, after any
