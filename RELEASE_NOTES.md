@@ -3,7 +3,9 @@
 Preparation #118; release #119; implementation #117.
 
 - Restore production and major-version branch publication omitted from the public
-  release replacement. Production, v1 and staging receive the same reviewed tree.
+  release replacement. Production and v1 receive the same distribution files, matching staging.
+- Publish LICENSE, README, VERSION, release notes, installer/update/uninstall,
+  bin and src; keep development files on staging.
 - Update all three branches atomically with exact leases. Refuse newer staging
   content, stale main or concurrent branch changes; create a missing major alias.
 - Require the release credential and complete branch publication before creating

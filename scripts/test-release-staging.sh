@@ -4,6 +4,8 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "$0")" && pwd)"
 fixture="$(mktemp -d)"
 trap 'rm -rf "$fixture"' EXIT
+printf 'VERSION\n.eci/runtime\n' > "$fixture/manifest"
+export ECI_RELEASE_MANIFEST="$fixture/manifest"
 export GIT_AUTHOR_NAME='Release test' GIT_COMMITTER_NAME='Release test'
 export GIT_AUTHOR_EMAIL='test@example.invalid' GIT_COMMITTER_EMAIL='test@example.invalid'
 for scenario in identical missing-major new-content stale-main concurrent-staging concurrent-production concurrent-major; do
@@ -14,7 +16,11 @@ for scenario in identical missing-major new-content stale-main concurrent-stagin
   cd "$work"
   git remote add origin "$remote"
   echo 1.4.0 > VERSION
-  git add VERSION
+  mkdir .eci
+  echo runtime > .eci/runtime
+  chmod +x .eci/runtime
+  echo development > development-only.txt
+  git add VERSION .eci/runtime development-only.txt
   git commit -qm base
   base=$(git rev-parse HEAD)
   git branch -M main
@@ -57,8 +63,12 @@ for scenario in identical missing-major new-content stale-main concurrent-stagin
   if bash "$script_dir/sync-release-branches.sh" "$released"; then
     [[ "$scenario" == identical || "$scenario" == missing-major ]]
     expected="$released"
-    production="$released"
-    major="$released"
+    production=$(git --git-dir="$remote" rev-parse production)
+    major="$production"
+    git diff --exit-code "$released" "$production" -- VERSION .eci/runtime
+    test "$(git --git-dir="$remote" ls-tree --name-only "$production")" = "$(printf '.eci\nVERSION')"
+    test "$(git --git-dir="$remote" rev-parse "$production:VERSION")" = "$(git rev-parse "$released:VERSION")"
+    test "$(git --git-dir="$remote" rev-parse "$production:.eci/runtime")" = "$(git rev-parse "$released:.eci/runtime")"
     # An already synchronized release is safe to retry.
     bash "$script_dir/sync-release-branches.sh" "$released"
   else
