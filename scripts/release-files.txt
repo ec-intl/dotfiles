@@ -1,0 +1,9 @@
+LICENSE
+README.md
+VERSION
+RELEASE_NOTES.md
+install
+uninstall
+update
+bin
+src

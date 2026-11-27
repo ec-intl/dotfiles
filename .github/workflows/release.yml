@@ -18,8 +18,8 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-          token: ${{ secrets.RPAT || github.token }}
-      - name: Publish the reviewed main commit
+          token: ${{ secrets.RPAT }}
+      - name: Promote and publish the reviewed main commit
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -35,13 +35,11 @@ jobs:
           if git show-ref --verify --quiet "refs/tags/$tag"; then
             # Never reuse a version that points at a different commit.
             test "$(git rev-parse "$tag^{commit}")" = "$GITHUB_SHA"
-            if gh release view "$tag" >/dev/null 2>&1; then
-              echo "Release $tag already exists at this commit."
-              exit 0
-            fi
+          fi
+          bash scripts/sync-release-branches.sh "$GITHUB_SHA"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release $tag already exists at this commit; branches synchronized."
+            exit 0
           fi
           gh release create "$tag" --target "$GITHUB_SHA" \
             --title "$tag" --generate-notes
-      - name: Synchronize staging with the released main commit
-        shell: bash
-        run: bash scripts/sync-release-staging.sh "$GITHUB_SHA"
