@@ -1,4 +1,21 @@
-# dotfiles v1.5.0 — server command release candidate
+# dotfiles v1.5.1 — release publication correction
+
+Preparation #118; release #119; implementation #117.
+
+- Restore production and major-version branch publication omitted from the public
+  release replacement. Production and v1 receive the same distribution files, matching staging.
+- Publish LICENSE, README, VERSION, release notes, installer/update/uninstall,
+  bin and src; keep development files on staging.
+- Update all three branches atomically with exact leases. Refuse newer staging
+  content, stale main or concurrent branch changes; create a missing major alias.
+- Require the release credential and complete branch publication before creating
+  the GitHub release. Existing releases can be retried safely.
+
+The workflow credential must have the template's authorized branch-update
+permissions; #115 remains open until hosted publication verifies that capability.
+No server process or installed checkout is changed by this preparation.
+
+## dotfiles v1.5.0 — server command release candidate
 
 Preparation #110; release #111. Requires approval and merge of #109 (#108).
 
